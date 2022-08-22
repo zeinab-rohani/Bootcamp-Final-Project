@@ -32,11 +32,14 @@ const getCompanies = async (req, res) => {
 
 const getCompany = async (req, res) => {
     const { companyId } = req.params;
+    console.log("company ID", companyId)
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
-        const result = await db.collection("companies").findOne({ _id: +companyId });
+        const result = await db.collection("companies").findOne({ _id: ObjectId(companyId) });
+        console.log("result", result)
+
         if (result) {
             res.status(200).json({ status: 200, data: result });
         } else {

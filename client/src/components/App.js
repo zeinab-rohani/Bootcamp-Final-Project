@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import HomePage from "./HomePage";
@@ -8,14 +8,21 @@ import CheckoutPage from "./CheckoutPage";
 import UserBooking from './UserBooking';
 import CompanyBooking from './CompanyBooking';
 import ConfirmationPage from "./ConfirmationPage";
+import Profile from './Profile';
+
 
 function App() {
+
   return (
     <Router>
       <GlobalStyles />
       <Header />
       <Routes>
         <Route exact path="/" element={<HomePage />}>
+        </Route>
+        {/* <Route exact path="/login" element={<Login />}>
+        </Route> */}
+        <Route exact path="/profile" element={<Profile />}>
         </Route>
         <Route exact path="/companies/:companyId" element={<CompanyDetails />}>
         </Route>

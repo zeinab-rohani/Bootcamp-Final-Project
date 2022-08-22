@@ -3,12 +3,22 @@ import ReactDOM from 'react-dom/client';
 import App from './components/App';
 import CurrentBookingProvider from "./components/CurrentBookingContext";
 import reportWebVitals from './reportWebVitals';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CurrentBookingProvider>
-      <App />
+    <Auth0Provider
+    domain="dev-zanvxts5.us.auth0.com"
+    clientId="FokUZt1M1mhi9I4etZRFrJMULBjbe8fJ"
+    redirectUri={window.location.origin}
+    audience= 'finalProjectBackend'
+    scope="read:current_user update:current_user_metadata"
+
+  >
+    <App />
+  </Auth0Provider>,
     </CurrentBookingProvider>
   </React.StrictMode>
 );

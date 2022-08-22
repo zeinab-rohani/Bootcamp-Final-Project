@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+import LogoutButton from "./Logout";
 
 const HomePage = () => {
     return (
@@ -10,6 +12,7 @@ const HomePage = () => {
                 </FirstSection>
                 <SecondSection>
                     <Input type={"text"} value={"address"} placeHolder={"Enter your address"}></Input>
+                    
                 </SecondSection>
             </Container>
         </Wrapper>

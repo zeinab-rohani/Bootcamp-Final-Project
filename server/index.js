@@ -12,8 +12,14 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const { auth } = require('express-oauth2-jwt-bearer');
 
 const PORT = 8000;
+
+const checkJwt = auth({
+    audience: 'finalProjectBackend',
+    issuerBaseURL: `https://dev-zanvxts5.us.auth0.com/`,
+});
 
 const {
     getCompanies,
@@ -45,6 +51,13 @@ express()
 .use("/", express.static(__dirname + "/"))
 
 // REST endpoints:
+
+.get ("/fetch-message", checkJwt, function(req, res){
+    res.status(200).json({message: "User is authinticated"})
+}
+)
+
+
 .get("/api/companies", getCompanies)
 .get("/api/companies/:companyId", getCompany)
 .get("/api/companies/suggested", getSuggestedCompanies)

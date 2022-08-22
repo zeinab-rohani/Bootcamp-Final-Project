@@ -1,22 +1,62 @@
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import CurrentBookingContext from "./CurrentBookingContext";
+import LogoutButton from "./Logout";
+import LoginButton from "./Login";
+import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./Profile";
+
 
 const Header = () => {
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const [error, setError] = useState("")
+    const [message, setMessage] = useState("")
+    const { user } = useAuth0();
+
+console.log("user:", user);
+
+    useEffect(()  =>{
+        const getProtectedMessage = async () => {
+            if (isAuthenticated) {
+                const accessToken = await getAccessTokenSilently()
+                fetch("/fetch-message",
+                {
+                    headers: {
+                        Authorization: "Bearer" + accessToken
+                    }
+                }
+                ).then(res => {
+                    if (res.status === 200){
+                        return res.json().then(data => setMessage(data.message))
+                    } else {
+                        setError(res.statusText)
+                    }
+                    
+                })
+            }
+        }
+        getProtectedMessage()
+    },[isAuthenticated, getAccessTokenSilently])
+
     return (
         <Wrapper>
             <Link to="/" >
             <Logo>
                 <h1>My logo</h1>
                 <SigninSection>
-                    {/* Manage your booking as: */}
+                {/* <Link to="/login">login</Link> */}
+                {!isAuthenticated && <LoginButton />}
+                {isAuthenticated && <LogoutButton />}
+                {isAuthenticated && <Link to="/profile"></Link>}
+                </SigninSection>
+                {/* <SigninSection>
                     <label>Sign in as:</label>
                     <select name="users" >
                         <option value="Client">Client</option>
                         <option value="Company">Company</option>
                     </select>
-                </SigninSection>
+                </SigninSection> */}
             </Logo>
             </Link>
         </Wrapper>

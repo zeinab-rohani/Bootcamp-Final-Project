@@ -132,16 +132,18 @@ const addBooking = async (req, res) => {
     try {
     await client.connect();
     const db = client.db("homeaide");
-    const requestedService = req.body.requestedService;
+    // const requestedService = req.body.requestedService;
     const addBooking = {
         userId: uuidv4(),
         userFirstname: req.body.userFirstname,
         userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
-        requestedService: requestedService,
+        userAddress: req.body.userAddress,
+        description: req.body.description
+        // requestedService: requestedService,
         };
 
-    const bookingAdded = await db.collection("orders").insertOne(addBooking);
+    const bookingAdded = await db.collection("serviceRequests").insertOne(addBooking);
         res.status(201).json({ status: 201, data: bookingAdded });
     } catch (err) {
         res.status(500).json({ status: 500, message: err.message });
@@ -154,7 +156,7 @@ const deleteBooking = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
-        const db = client.db("E-commerce");
+        const db = client.db("");
         const result = await db.collection("orders")
         .deleteOne({ _id: ObjectId(bookingId) });
         res.status(204).json({ status: 204, data: orderId, message: "Booking is deleted" });

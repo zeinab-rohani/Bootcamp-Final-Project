@@ -1,31 +1,62 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom";
 import LogoutButton from "./Logout";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./Login";
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+
+    const { isAuthenticated } = useAuth0();
+    const { user } = useAuth0();
+
+    const navigateNewService = useNavigate();
+    const navigateServices = useNavigate();
+
+
+const newServicHandleClick = () => {
+    navigateNewService("/serviceForm")
+}
+
+const manageHandleClick = () => {
+    navigateServices("/services")
+}
+
     return (
         <Wrapper>
             <Container>
                 <Image src={process.env.PUBLIC_URL + "/image.png"} />
-                <FirstSection>
-                    <Div>Provide your address and choose a service</Div>            
-                </FirstSection>
-                <SecondSection>
-                <label>Provide your location:</label>
-                    <select name="location" >
-                        <option value="Montreal">Montreal</option>
-                        <option value="Laval">Laval</option>
-                        <option value="Blaineville">Blaineville</option>
-                        <option value="Longueuil">Longueuil</option>
-                </select>    
-                <label>Choose your service:</label>
-                    <select name="services" >
-                        <option value="Plumbing">Plumbing</option>
-                        <option value="heating">Heating</option>
-                        <option value="painting">Painting</option>
-                </select>
-                <Button>Searche</Button>
-                </SecondSection>
+                <Section>
+                {!user &&
+                <>
+                <p>Need help with something in your house?</p>            
+                <p>Sign in to find it:</p>
+                </>            
+                }
+
+                {user && 
+                <>
+                <Div>Welcome {user.name}</Div>
+                <>
+                <button onClick={() => newServicHandleClick()}>
+                    Request a new service
+                </button>
+                <button onClick={() => manageHandleClick()} >
+                    Manage my previous services
+                </button>
+                </>
+                {/* <Link to="/profile">Visite my profile</Link> */}
+                </>
+                }
+                {/* <SigninSection>
+                {!isAuthenticated && <LoginButton />}
+                {isAuthenticated && <LogoutButton />}
+                {isAuthenticated && 
+                <div>Manage my requests:
+                    <Link to="/profile"></Link>
+                </div>
+                }
+                </SigninSection> */}
+                </Section>
             </Container>
         </Wrapper>
     );
@@ -44,16 +75,7 @@ width: 100vw;
 position: relative;
 `;
 
-const FirstSection = styled.div`
-position: absolute;
-font-size: 3rem;
-font-weight: bolder;
-top: 8%;
-left: 20%;
-color: #2F4F4F;
-`;
-
-const SecondSection = styled.div`
+const Section = styled.div`
 position: absolute;
 width: 60%;
 height: 100px;
@@ -72,8 +94,8 @@ opacity : 0.7;
 `;
 
 const Div = styled.div`
-height : 500px;
-font-size : xx-large;
+height : 20px;
+font-size : large;
 `;
 
 const Button = styled.button`
@@ -82,4 +104,10 @@ height: 30px;
 color: white;
 background-color: blue;
 `;
+
+const SigninSection = styled.div`
+margin-left : 300px;
+`;
+
+
 export default HomePage;

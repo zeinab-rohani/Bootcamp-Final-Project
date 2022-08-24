@@ -1,50 +1,30 @@
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import CurrentBookingContext from "./CurrentBookingContext";
 import LogoutButton from "./Logout";
 import LoginButton from "./Login";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Profile";
-
+// import CurrentBookingProvider from "./CurrentBookingContext";
 
 const Header = () => {
-    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-    const [error, setError] = useState("")
-    const [message, setMessage] = useState("")
+    const { isAuthenticated } = useAuth0();
     const { user } = useAuth0();
+    // const { currentServiceProvider, setCurrentServiceProvider } =
+    // useContext(CurrentBookingProvider)
 
 {user ? console.log("user", user.name) : console.log("no user found")}
-
-    useEffect(()  =>{
-        const getProtectedMessage = async () => {
-            if (isAuthenticated) {
-                const accessToken = await getAccessTokenSilently()
-                fetch("/fetch-message",
-                {
-                    headers: {
-                        Authorization: "Bearer" + accessToken
-                    }
-                }
-                ).then(res => {
-                    if (res.status === 200){
-                        return res.json().then(data => setMessage(data.message))
-                    } else {
-                        setError(res.statusText)
-                    }
-                    
-                })
-            }
-        }
-        getProtectedMessage()
-    },[isAuthenticated, getAccessTokenSilently])
-
     return (
         <Wrapper>
             <Link to="/" >
             <Logo>
                 <h1>My logo</h1>
-                {user && <Div>Hi {user.name}</Div>}
+                {user && 
+                <Div>Welcome {user.name}</Div>
+    
+                }
+                  
+                
                 <SigninSection>
                 {!isAuthenticated && <LoginButton />}
                 {isAuthenticated && <LogoutButton />}

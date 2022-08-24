@@ -9,6 +9,8 @@ import UserBooking from './UserBooking';
 import CompanyBooking from './CompanyBooking';
 import ConfirmationPage from "./ConfirmationPage";
 import Profile from './Profile';
+import ServiceForm from './serviceForm';
+import Services from './services';
 
 
 function App() {
@@ -23,6 +25,10 @@ function App() {
         {/* <Route exact path="/login" element={<Login />}>
         </Route> */}
         <Route exact path="/profile" element={<Profile />}>
+        </Route>
+        <Route exact path="/serviceForm" element={<ServiceForm />}>
+        </Route>
+        <Route exact path="/services" element={<Services />}>
         </Route>
         <Route exact path="/companies/:companyId" element={<CompanyDetails />}>
         </Route>

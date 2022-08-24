@@ -5,6 +5,8 @@ const CurrentBookingContext = createContext();
 const CurrentBookingProvider = ({ children }) => {
     const [currentBooking, setCurrentBooking] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
+    const [currentServiceProvider, setCurrentServiceProvider] = useState(null);
+
     
     return (
         <CurrentBookingContext.Provider
@@ -13,6 +15,8 @@ const CurrentBookingProvider = ({ children }) => {
             setCurrentBooking,
             currentUser,
             setCurrentUser,
+            currentServiceProvider,
+            setCurrentServiceProvider
         }}
         >
         {children}

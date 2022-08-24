@@ -11,8 +11,20 @@ const HomePage = () => {
                     <Div>Provide your address and choose a service</Div>            
                 </FirstSection>
                 <SecondSection>
-                    <Input type={"text"} value={"address"} placeHolder={"Enter your address"}></Input>
-                    
+                <label>Provide your location:</label>
+                    <select name="location" >
+                        <option value="Montreal">Montreal</option>
+                        <option value="Laval">Laval</option>
+                        <option value="Blaineville">Blaineville</option>
+                        <option value="Longueuil">Longueuil</option>
+                </select>    
+                <label>Choose your service:</label>
+                    <select name="services" >
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="heating">Heating</option>
+                        <option value="painting">Painting</option>
+                </select>
+                <Button>Searche</Button>
                 </SecondSection>
             </Container>
         </Wrapper>
@@ -64,6 +76,10 @@ height : 500px;
 font-size : xx-large;
 `;
 
-const Input = styled.input`
+const Button = styled.button`
+border: 3px solid black;
+height: 30px;
+color: white;
+background-color: blue;
 `;
 export default HomePage;

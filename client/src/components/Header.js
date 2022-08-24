@@ -14,7 +14,7 @@ const Header = () => {
     const [message, setMessage] = useState("")
     const { user } = useAuth0();
 
-console.log("user:", user);
+{user ? console.log("user", user.name) : console.log("no user found")}
 
     useEffect(()  =>{
         const getProtectedMessage = async () => {
@@ -44,19 +44,12 @@ console.log("user:", user);
             <Link to="/" >
             <Logo>
                 <h1>My logo</h1>
+                {user && <Div>Hi {user.name}</Div>}
                 <SigninSection>
-                {/* <Link to="/login">login</Link> */}
                 {!isAuthenticated && <LoginButton />}
                 {isAuthenticated && <LogoutButton />}
                 {isAuthenticated && <Link to="/profile"></Link>}
                 </SigninSection>
-                {/* <SigninSection>
-                    <label>Sign in as:</label>
-                    <select name="users" >
-                        <option value="Client">Client</option>
-                        <option value="Company">Company</option>
-                    </select>
-                </SigninSection> */}
             </Logo>
             </Link>
         </Wrapper>
@@ -81,4 +74,8 @@ width: 100%;
 
 const SigninSection = styled.div`
 margin-left : 1000px;
+`;
+
+const Div = styled.div`
+font-size: large;
 `;

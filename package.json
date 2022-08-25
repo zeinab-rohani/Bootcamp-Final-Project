@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/zeinab-rohani/Bootcamp-Final-Project.git",
   "author": "Zeinab <zrohani2001@yahoo.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "google-map-react": "^2.2.0"
+  }
 }

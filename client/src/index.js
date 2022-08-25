@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-import CurrentBookingProvider from "./components/CurrentBookingContext";
+import CurrentRequestProvider from "./components/CurrentRequestContext";
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <CurrentBookingProvider>
+    <CurrentRequestProvider>
     <Auth0Provider
     domain="dev-zanvxts5.us.auth0.com"
     clientId="FokUZt1M1mhi9I4etZRFrJMULBjbe8fJ"
@@ -19,8 +18,7 @@ root.render(
   >
     <App />
   </Auth0Provider>,
-    </CurrentBookingProvider>
-  </React.StrictMode>
+    </CurrentRequestProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

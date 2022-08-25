@@ -1,13 +1,21 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceForm = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
-    const [description, setDescription] = useState("");
+
+    const {address, setAddress,
+        firstName, setFirstName,
+        lastName, setLastName,
+        email, setEmail,
+        description, setDescription} = useContext(CurrentRequestContext);
+
+    // const [firstName, setFirstName] = useState("");
+    // const [lastName, setLastName] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [address, setAddress] = useState("");
+    // const [description, setDescription] = useState("");
 
     const navigateServices = useNavigate()
 
@@ -61,7 +69,7 @@ const submitHandle = (event) => {
     <UserInput
         type="text"
         placeholder="  email"
-        value={address}
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
     />
     </Label>
@@ -70,7 +78,7 @@ const submitHandle = (event) => {
     <UserInput
         type="text"
         placeholder="  address"
-        value={email}
+        value={address}
         onChange={(e) => setAddress(e.target.value)}
     />
     </Label>
@@ -79,7 +87,7 @@ const submitHandle = (event) => {
     <UserInput
         type="text"
         placeholder="  description"
-        value={email}
+        value={description}
         onChange={(e) => setDescription(e.target.value)}
     />
         </Label>

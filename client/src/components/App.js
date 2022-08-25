@@ -9,8 +9,8 @@ import UserBooking from './UserBooking';
 import CompanyBooking from './CompanyBooking';
 import ConfirmationPage from "./ConfirmationPage";
 import Profile from './Profile';
-import ServiceForm from './serviceForm';
-import Services from './services';
+import ServiceForm from './ServiceForm';
+import Services from './Services';
 
 
 function App() {

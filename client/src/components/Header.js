@@ -5,13 +5,10 @@ import LogoutButton from "./Logout";
 import LoginButton from "./Login";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Profile";
-// import CurrentBookingProvider from "./CurrentBookingContext";
 
 const Header = () => {
     const { isAuthenticated } = useAuth0();
     const { user } = useAuth0();
-    // const { currentServiceProvider, setCurrentServiceProvider } =
-    // useContext(CurrentBookingProvider)
 
 {user ? console.log("user", user.name) : console.log("no user found")}
     return (

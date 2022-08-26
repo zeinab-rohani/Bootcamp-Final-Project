@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 export const CurrentRequestContext = createContext();
 
 const CurrentRequestProvider = ({ children }) => {
-    const [currentRequest, setCurrentRequest] = useState([]);
+    const [currentService, setCurrentService] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
     const [currentServiceProvider, setCurrentServiceProvider] = useState(null);
     const [address, setAddress] = useState(null);
@@ -12,12 +12,11 @@ const CurrentRequestProvider = ({ children }) => {
     const [email, setEmail] = useState(null);
     const [description, setDescription] = useState(null);
 
-    
     return (
         <CurrentRequestContext.Provider
         value={{
-            currentRequest,
-            setCurrentRequest,
+            currentService,
+            setCurrentService,
             currentUser,
             setCurrentUser,
             currentServiceProvider,

@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import { NavLink, Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import LogoutButton from "./Logout";
 import LoginButton from "./Login";
 import { useAuth0 } from "@auth0/auth0-react";
-import Profile from "./Profile";
 
 const Header = () => {
     const { isAuthenticated } = useAuth0();
     const { user } = useAuth0();
 
-{user ? console.log("user", user.name) : console.log("no user found")}
+    {user ? console.log("user", user.name) : console.log("no user found")}
     return (
         <Wrapper>
             <Link to="/" >
@@ -18,17 +16,15 @@ const Header = () => {
                 <h1>My logo</h1>
                 {user && 
                 <Div>Welcome {user.name}</Div>
-    
                 }
-                  
-                
                 <SigninSection>
-                {!isAuthenticated && <LoginButton />}
-                {isAuthenticated && <LogoutButton />}
-                {isAuthenticated && <Link to="/profile"></Link>}
+                {!user && <LoginButton />}
+                {user && <LogoutButton />}
+                {user && <Link to="/profile"></Link>}
                 </SigninSection>
             </Logo>
             </Link>
+            
         </Wrapper>
     );
 };
@@ -56,3 +52,4 @@ margin-left : 1000px;
 const Div = styled.div`
 font-size: large;
 `;
+

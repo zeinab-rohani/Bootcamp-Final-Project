@@ -22,7 +22,7 @@ const ServiceForm = () => {
 const submitHandle = (event) => {
     // event.preventDefault();
 
-    fetch("/api/add-booking", {
+    fetch("/api/add-service", {
     method: "POST",
     headers: {
         Accept: "application/json",

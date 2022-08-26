@@ -77,13 +77,13 @@ const getSuggestedCompanies = async (req, res) => {
     client.close();
     };
 
-const getBookings = async (req, res) => {
+const getServices = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
 
-        const result = await db.collection("bookings").find().toArray();
+        const result = await db.collection("serviceRequests").find().toArray();
         if (result) {
         res.status(200).json({ status: 200, data: result });
         } else {
@@ -95,13 +95,13 @@ const getBookings = async (req, res) => {
     client.close();
 };
 
-const getBookingByUser = async (req, res) => {
+const getServiceByUser = async (req, res) => {
     const { userId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
-        const result = await db.collection("bookings").findOne({ _Id: userId });
+        const result = await db.collection("serviceRequests").findOne({ _Id: userId });
         result
         ? res.status(200).json({ status: 200, data: result })
         : res.status(404).json({ status: 404, data: "Not Found" });
@@ -111,13 +111,13 @@ const getBookingByUser = async (req, res) => {
     client.close();
 };
 
-const getBookingByCompany = async (req, res) => {
-    const { companyId } = req.params;
+const getService = async (req, res) => {
+    const { Id } = req.params;
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
-        const result = await db.collection("bookings").findOne({ _Id: companyId });
+        const result = await db.collection("serviceRequests").findOne({ _id: Id });
         result
         ? res.status(200).json({ status: 200, data: result })
         : res.status(404).json({ status: 404, data: "Not Found" });
@@ -127,13 +127,13 @@ const getBookingByCompany = async (req, res) => {
     client.close();
 };
 
-const addBooking = async (req, res) => {
+const addService = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     try {
     await client.connect();
     const db = client.db("homeaide");
     // const requestedService = req.body.requestedService;
-    const addBooking = {
+    const addService = {
         userId: uuidv4(),
         userFirstname: req.body.userFirstname,
         userLastname: req.body.userLastname,
@@ -143,8 +143,8 @@ const addBooking = async (req, res) => {
         // requestedService: requestedService,
         };
 
-    const bookingAdded = await db.collection("serviceRequests").insertOne(addBooking);
-        res.status(201).json({ status: 201, data: bookingAdded });
+    const serviceAdded = await db.collection("serviceRequests").insertOne(addService);
+        res.status(201).json({ status: 201, data: serviceAdded });
     } catch (err) {
         res.status(500).json({ status: 500, message: err.message });
     }
@@ -170,9 +170,10 @@ module.exports = {
     getCompanies,
     getCompany,
     getSuggestedCompanies,
-    getBookings,
-    addBooking,
+    getServices,
+    getService,
+    addService,
     deleteBooking,
-    getBookingByUser,
+    getServiceByUser,
     getBookingByCompany,
 };

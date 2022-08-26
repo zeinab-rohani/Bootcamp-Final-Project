@@ -1,65 +1,55 @@
 import styled from "styled-components";
-import LogoutButton from "./Logout";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "./Login";
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+const { user } = useAuth0();
+const navigateNewService = useNavigate();
+const navigateServices = useNavigate();
+const navigateUserServices = useNavigate();
 
-    const { isAuthenticated } = useAuth0();
-    const { user } = useAuth0();
-
-    const navigateNewService = useNavigate();
-    const navigateServices = useNavigate();
-
-
-const newServicHandleClick = () => {
-    navigateNewService("/serviceForm")
-}
-
-const manageHandleClick = () => {
+const handleClick = () => {
     navigateServices("/services")
 }
+const newServicHandleClick = () => {
+navigateNewService("/serviceForm")
+}
+const manageHandleClick = () => {
+navigateUserServices("/user-services")
+}
 
-    return (
-        <Wrapper>
-            <Container>
-                <Image src={process.env.PUBLIC_URL + "/image.png"} />
-                <Section>
-                {!user &&
+return (
+    <Wrapper>
+        <Container>
+            <Image src={process.env.PUBLIC_URL + "/image.png"} />
+            <Section>
+            {!user &&
                 <>
                 <p>Need help with something in your house?</p>            
                 <p>Sign in to find it:</p>
                 </>            
                 }
-
                 {user && 
                 <>
-                <Div>Welcome {user.name}</Div>
-                <>
+                {/* <Div>Welcome {user.name}</Div> */}
                 <button onClick={() => newServicHandleClick()}>
-                    Request a new service
+                Request a new service
                 </button>
                 <button onClick={() => manageHandleClick()} >
-                    Manage my previous services
+                Manage my previous services
                 </button>
-                </>
+                <SpSection>
+                    <label>If you are a service provider, click here:</label>
+                    <SpButton onClick={() => {handleClick();}}>
+                    Click </SpButton>
+                </SpSection>
                 {/* <Link to="/profile">Visite my profile</Link> */}
                 </>
-                }
-                {/* <SigninSection>
-                {!isAuthenticated && <LoginButton />}
-                {isAuthenticated && <LogoutButton />}
-                {isAuthenticated && 
-                <div>Manage my requests:
-                    <Link to="/profile"></Link>
-                </div>
-                }
-                </SigninSection> */}
-                </Section>
-            </Container>
-        </Wrapper>
-    );
+            }
+            </Section>
+        </Container>
+    </Wrapper>
+);
 };
 
 const Wrapper = styled.div`
@@ -109,5 +99,11 @@ const SigninSection = styled.div`
 margin-left : 300px;
 `;
 
+const SpSection = styled.div`
+font-size: large;
+`;
+
+const SpButton = styled.button`
+height: 50px`;
 
 export default HomePage;

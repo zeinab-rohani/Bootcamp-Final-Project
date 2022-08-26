@@ -10,7 +10,8 @@ import CompanyBooking from './CompanyBooking';
 import ConfirmationPage from "./ConfirmationPage";
 import Profile from './Profile';
 import ServiceForm from './ServiceForm';
-import Services from './Services';
+import Services from './AllServicesPage';
+import UserServicesPage from './UserServicesPage';
 
 
 function App() {
@@ -22,13 +23,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />}>
         </Route>
-        {/* <Route exact path="/login" element={<Login />}>
-        </Route> */}
         <Route exact path="/profile" element={<Profile />}>
         </Route>
         <Route exact path="/serviceForm" element={<ServiceForm />}>
         </Route>
         <Route exact path="/services" element={<Services />}>
+        </Route>
+        <Route exact path="/user-services" element={<UserServicesPage />}>
         </Route>
         <Route exact path="/companies/:companyId" element={<CompanyDetails />}>
         </Route>

@@ -16,10 +16,11 @@ const {
     getCompanies,
     getCompany,
     getSuggestedCompanies,
-    getBookings,
-    addBooking,
+    getServices,
+    addService,
+    getService,
     deleteBooking,
-    getBookingByUser,
+    getServiceByUser,
     getBookingByCompany,
 } = require("./handlers");
 
@@ -50,12 +51,12 @@ express()
 
 
 .get("/api/companies", getCompanies)
-.get("/api/companies/:companyId", getCompany)
-.get("/api/companies/suggested", getSuggestedCompanies)
-.get("/api/bookings", getBookings)
-.post("/api/add-booking", addBooking)
+.get("/api/companies/:Id", getCompany)
+.get("/api/services/:Id", getService)
+.get("/api/services", getServices)
+.get("/api/services-users/:userId", getServiceByUser)
+.post("/api/add-service", addService)
 .delete("/api/delete-booking/:bookingId", deleteBooking)
-.get("/api/booking-user/:userId", getBookingByUser)
 .get("/api/booking-company/:companyId", getBookingByCompany)
 
 .get("*", (req, res) => {

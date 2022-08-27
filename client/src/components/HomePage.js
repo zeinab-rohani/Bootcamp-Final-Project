@@ -1,14 +1,26 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
+
+    const { currentUser, setCurrentUser,
+    serviceProvider, setServiceProvider} = useContext(CurrentRequestContext);
+        
+
 const { user } = useAuth0();
+console.log("user", user)
+
 const navigateNewService = useNavigate();
 const navigateServices = useNavigate();
 const navigateUserServices = useNavigate();
 
 const handleClick = () => {
+    console.log("user", user.name)
+    setServiceProvider(user.name);
+    console.log("sp", serviceProvider)
     navigateServices("/services")
 }
 const newServicHandleClick = () => {

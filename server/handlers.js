@@ -51,32 +51,6 @@ const getCompany = async (req, res) => {
     client.close();
 };
 
-const getSuggestedCompanies = async (req, res) => {
-    const companiesList = [];
-
-    const client = new MongoClient(MONGO_URI, options);
-    try {
-        await client.connect();
-        const db = client.db("homeaide");
-        //Set limit to 10 on the home page
-        const companiesResult = await db.collection("companies").find().limit(10).toArray();
-        companiesResult.map((item) => {
-        if (!companiesList.includes(item._id)) {
-            companiesList.push(item._id);
-            return companiesList;
-        }
-        });
-        if (companiesList) {
-        res.status(200).json({ status: 200, data: companiesList });
-        } else {
-        res.status(404).json({ status: 404, data: [] });
-        }
-    } catch (err) {
-        res.status(500).json({ status: 500, data: req.body, message: err.message });
-    }
-    client.close();
-    };
-
 const getServices = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     try {
@@ -95,7 +69,23 @@ const getServices = async (req, res) => {
     client.close();
 };
 
-const getServiceByUser = async (req, res) => {
+const getService = async (req, res) => {
+    const { serviceId } = req.params;
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db("homeaide");
+        const result = await db.collection("serviceRequests").findOne({ _id: serviceId });
+        result
+        ? res.status(200).json({ status: 200, data: result })
+        : res.status(404).json({ status: 404, data: "Not Found" });
+    } catch (err) {
+        res.status(500).json({ status: 500, data: req.body, message: err.message });
+    }
+    client.close();
+};
+
+const getServicesByUser = async (req, res) => {
     const { userId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
     try {
@@ -111,13 +101,13 @@ const getServiceByUser = async (req, res) => {
     client.close();
 };
 
-const getService = async (req, res) => {
-    const { Id } = req.params;
+const getServicesByCompany = async (req, res) => {
+    const { companyId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
-        const result = await db.collection("serviceRequests").findOne({ _id: Id });
+        const result = await db.collection("serviceRequests").findOne({ _Id: companyId });
         result
         ? res.status(200).json({ status: 200, data: result })
         : res.status(404).json({ status: 404, data: "Not Found" });
@@ -151,15 +141,15 @@ const addService = async (req, res) => {
     client.close();
 };
 
-const deleteBooking = async (req, res) => {
-    const { bookingId } = req.params;
+const deleteService = async (req, res) => {
+    const { serviceId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("");
         const result = await db.collection("orders")
-        .deleteOne({ _id: ObjectId(bookingId) });
-        res.status(204).json({ status: 204, data: orderId, message: "Booking is deleted" });
+        .deleteOne({ _id: ObjectId(serviceId) });
+        res.status(204).json({ status: 204, data: orderId, message: "Service request is deleted" });
     } catch (err) {
         res.status(500).json({ status: 500, data: req.body, message: err.message });
     }
@@ -169,11 +159,11 @@ const deleteBooking = async (req, res) => {
 module.exports = {
     getCompanies,
     getCompany,
-    getSuggestedCompanies,
     getServices,
     getService,
+    getServicesByUser,
+    getServicesByCompany,
+    getPositionFromAddress,
     addService,
-    deleteBooking,
-    getServiceByUser,
-    getBookingByCompany,
+    deleteService
 };

@@ -10,13 +10,7 @@ const ServiceForm = () => {
         lastName, setLastName,
         email, setEmail,
         description, setDescription} = useContext(CurrentRequestContext);
-
-    // const [firstName, setFirstName] = useState("");
-    // const [lastName, setLastName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [address, setAddress] = useState("");
-    // const [description, setDescription] = useState("");
-
+        
     const navigateServices = useNavigate()
 
 const submitHandle = (event) => {

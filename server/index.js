@@ -15,13 +15,13 @@ const checkJwt = auth({
 const {
     getCompanies,
     getCompany,
-    getSuggestedCompanies,
     getServices,
-    addService,
     getService,
-    deleteBooking,
-    getServiceByUser,
-    getBookingByCompany,
+    getServicesByUser,
+    getServicesByCompany,
+    getPositionFromAddress,
+    addService,
+    deleteService
 } = require("./handlers");
 
 express()
@@ -51,13 +51,14 @@ express()
 
 
 .get("/api/companies", getCompanies)
-.get("/api/companies/:Id", getCompany)
-.get("/api/services/:Id", getService)
+.get("/api/companies/:companyId", getCompany)
 .get("/api/services", getServices)
-.get("/api/services-users/:userId", getServiceByUser)
+.get("/api/services/:serviceId", getService)
+.get("/api/services-user/:userId", getServicesByUser)
+.get("/api/services-company/:companyId", getServicesByCompany)
+.get("api/position", getPositionFromAddress)
 .post("/api/add-service", addService)
-.delete("/api/delete-booking/:bookingId", deleteBooking)
-.get("/api/booking-company/:companyId", getBookingByCompany)
+.delete("/api/delete-service/:serviceId", deleteService)
 
 .get("*", (req, res) => {
     res.status(404).json({

@@ -19,7 +19,6 @@ const {
     getService,
     getServicesByUser,
     getServicesByCompany,
-    getPositionFromAddress,
     addService,
     deleteService
 } = require("./handlers");
@@ -56,7 +55,6 @@ express()
 .get("/api/services/:serviceId", getService)
 .get("/api/services-user/:userId", getServicesByUser)
 .get("/api/services-company/:companyId", getServicesByCompany)
-.get("api/position", getPositionFromAddress)
 .post("/api/add-service", addService)
 .delete("/api/delete-service/:serviceId", deleteService)
 

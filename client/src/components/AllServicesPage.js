@@ -9,10 +9,11 @@ const Services = () => {
         firstName, setFirstName,
         lastName, setLastName,
         email, setEmail,
-        description, setDescription} = useContext(CurrentRequestContext);
+        description, setDescription, serviceProvider} = useContext(CurrentRequestContext);
+
     return(
         <>
-        <div>{address}</div>
+        <div>{serviceProvider}</div>
         <Map />
         </>
     )

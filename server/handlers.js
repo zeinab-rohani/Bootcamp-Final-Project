@@ -3,6 +3,8 @@
 const { v4: uuidv4 } = require("uuid");
 const { MongoClient, ObjectId } = require("mongodb");
 
+const opencage = require('opencage-api-client');
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
@@ -119,18 +121,37 @@ const getServicesByCompany = async (req, res) => {
 
 const addService = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
+    let position;
+    const getPositionFromAddress = (address) => {
+        
+            const requestObj = {
+            key: process.env.OPENCAGE_API_KEY,
+            q: address,
+            };
+            return (opencage
+            .geocode(requestObj)
+            .then((data) => {
+            return position = data.results[0].geometry
+            })
+            )};
+            getPositionFromAddress(req.body.userAddress)
+    .then((position) =>
+
+            console.log("position", position));
+
     try {
     await client.connect();
     const db = client.db("homeaide");
-    // const requestedService = req.body.requestedService;
+
     const addService = {
         userId: uuidv4(),
         userFirstname: req.body.userFirstname,
         userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
         userAddress: req.body.userAddress,
-        description: req.body.description
-        // requestedService: requestedService,
+        description: req.body.description,
+        addressPositionLat: position.lat,
+        addressPositionLng: position.lng
         };
 
     const serviceAdded = await db.collection("serviceRequests").insertOne(addService);
@@ -163,7 +184,6 @@ module.exports = {
     getService,
     getServicesByUser,
     getServicesByCompany,
-    getPositionFromAddress,
     addService,
     deleteService
 };

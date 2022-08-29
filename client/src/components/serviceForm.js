@@ -2,19 +2,21 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentRequestContext } from "./CurrentRequestContext";
+import { ThankyouMessage } from "./ThankYou";
 
 const ServiceForm = () => {
-
+    const [requestFinalized, setRequestFinalized] = useState(false);
     const {address, setAddress,
         firstName, setFirstName,
         lastName, setLastName,
         email, setEmail,
         description, setDescription} = useContext(CurrentRequestContext);
         
-    const navigateServices = useNavigate()
+    // const navigateServices = useNavigate()
 
 const submitHandle = (event) => {
     // event.preventDefault();
+    setRequestFinalized(true);
 
     fetch("/api/add-service", {
     method: "POST",
@@ -33,12 +35,13 @@ const submitHandle = (event) => {
     return res.json();
     });
 
-    navigateServices("/services")
+    // navigateServices("/services")
 }
 
     return(
         <>
     <Wrapper>
+    {!requestFinalized ? (
     <form>
     <Label>
         First name:
@@ -109,7 +112,8 @@ const submitHandle = (event) => {
         >
         Submit 
     </SubmitButton>
-    </form>
+    </form>)
+    : <ThankyouMessage />}
     </Wrapper> 
         </>
     )

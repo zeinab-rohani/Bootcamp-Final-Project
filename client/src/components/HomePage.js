@@ -8,7 +8,6 @@ const HomePage = () => {
 
     const { currentUser, setCurrentUser,
     serviceProvider, setServiceProvider} = useContext(CurrentRequestContext);
-        
 
 const { user } = useAuth0();
 console.log("user", user)

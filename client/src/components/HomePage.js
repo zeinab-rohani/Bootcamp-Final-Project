@@ -6,20 +6,18 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
 
-    const { currentUser, setCurrentUser,
-    serviceProvider, setServiceProvider} = useContext(CurrentRequestContext);
+    const {currentUser, setCurrentUser} = useContext(CurrentRequestContext);
 
 const { user } = useAuth0();
 console.log("user", user)
+setCurrentUser(user);
+console.log("currentuser", currentUser)
 
 const navigateNewService = useNavigate();
 const navigateServices = useNavigate();
 const navigateUserServices = useNavigate();
 
 const handleClick = () => {
-    console.log("user", user.name)
-    setServiceProvider(user.name);
-    console.log("sp", serviceProvider)
     navigateServices("/services")
 }
 const newServicHandleClick = () => {

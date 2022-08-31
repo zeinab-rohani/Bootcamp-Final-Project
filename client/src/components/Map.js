@@ -1,13 +1,17 @@
 import { useEffect, createRef } from "react"
 import GoogleMapReact from "google-map-react";
+import { useContext, useState } from "react";
+import { CurrentRequestContext } from "./CurrentRequestContext";
+import { useNavigate } from "react-router-dom";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>
+const Map = ({markerArr}) => {
+  const Client = ({ text }) => <div onClick={handleClick} >{text}</div>
+  const navigateServices = useNavigate()
 
-const markerArr = [
-  { lat:45.5008243 , lng:-73.7955473 , text: "Home" }
-]
-
-const Map = () => {
+  const handleClick = () => {
+        navigateServices("/profile")
+  }
+  
     const defaultProps = {
         center: {
           lat: 45.48412,
@@ -17,14 +21,17 @@ const Map = () => {
       };
     
       return (
-        // Important! Always set the container height explicitly
-        <div style={{ height: '100vh', width: '100%' }}>
+        <div style={{ height: '80vh', width: '80%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyA11X2WyanHuFT08dv3TE_C4HXsfQl7BR4" }}
             defaultCenter={defaultProps.center}
             defaultZoom={defaultProps.zoom}
           >
-            <AnyReactComponent lat={45.5008243} lng={-73.7955473} text= "Home" />
+            {markerArr.map(mark => (
+            <Client 
+            lat={mark.lat} lng={mark.lng} text={mark.text} 
+            />
+            ))}
           </GoogleMapReact>
         </div>
       );

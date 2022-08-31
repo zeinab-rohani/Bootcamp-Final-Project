@@ -3,20 +3,22 @@ import { createContext, useContext, useState } from "react";
 export const CurrentRequestContext = createContext();
 
 const CurrentRequestProvider = ({ children }) => {
-    const [currentService, setCurrentService] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
-    const [serviceProvider, setServiceProvider] = useState(null);
+    const [service, setService] = useState([{}]);
+    const [services, setServices] = useState([]);
+    const [currentUser, setCurrentUser] = useState({});
+    const [serviceProvider, setServiceProvider] = useState([]);
     const [address, setAddress] = useState(null);
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
     const [description, setDescription] = useState(null);
+    const [serviceProviders, setServiceProviders] = useState([]);
 
     return (
         <CurrentRequestContext.Provider
         value={{
-            currentService,
-            setCurrentService,
+            service, setService,
+            services, setServices,
             currentUser,
             setCurrentUser,
             serviceProvider, setServiceProvider,
@@ -24,7 +26,8 @@ const CurrentRequestProvider = ({ children }) => {
             firstName, setFirstName,
             lastName, setLastName,
             email, setEmail,
-            description, setDescription
+            description, setDescription,
+            serviceProviders, setServiceProviders
         }}
         >
         {children}

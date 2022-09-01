@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./Logout";
 import { useNavigate } from "react-router-dom";
 
-
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigateNewService = useNavigate();
@@ -19,11 +18,12 @@ const Profile = () => {
     return (
       isAuthenticated && (
         <div>
-          my profile
+        <InfoSection>
           <img src={user.picture} alt={user.name} />
           <h2>{user.name}</h2>
           <p>{user.email}</p>
-          <LogoutButton />
+          {/* <LogoutButton /> */}
+        </InfoSection>
           <Button onClick={newServiceHandler} >Add a new service request</Button>
           <Button onClick={manageServicesHandler} >Manage my previous service requests</Button>
         </div> 
@@ -33,9 +33,16 @@ const Profile = () => {
 
 export default Profile;
 
-const Button = styled.button`
+const InfoSection = styled.div`
 margin: 50px;
-height: 50px;
-width: 200px;
+font-size: large;
+`;
+
+const Button = styled.button`
+font-size: x-large;
+margin: 50px;
+height: 80px;
+width: 400px;
 border: 3px solid gray;
+background-color: lightblue;
 `;

@@ -13,6 +13,7 @@ const CurrentRequestProvider = ({ children }) => {
     const [email, setEmail] = useState(null);
     const [serviceCategory, setServiceCategory] = useState(null);
     const [description, setDescription] = useState(null);
+    const [title, setTitle] = useState(null);
     const [serviceProviders, setServiceProviders] = useState([]);
     const [phone, setPhone] = useState(null);
 
@@ -29,6 +30,7 @@ const CurrentRequestProvider = ({ children }) => {
             firstName, setFirstName,
             lastName, setLastName,
             email, setEmail,
+            title, setTitle,
             description, setDescription,
             serviceCategory, setServiceCategory
         }}

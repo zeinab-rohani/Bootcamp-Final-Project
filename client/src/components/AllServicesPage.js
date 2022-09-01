@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Map from "./Map";
 import { Loading } from "./Loading";
 

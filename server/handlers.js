@@ -150,9 +150,11 @@ const addService = async (req, res) => {
         userEmail: req.body.userEmail,
         userPhone: req.body.phone,
         userAddress: req.body.userAddress,
+        title: req.body.title,
         description: req.body.description,
         addressPositionLat: position.lat,
-        addressPositionLng: position.lng
+        addressPositionLng: position.lng,
+        serviceCategory: req.body.serviceCategory
         };
 
     const addClient = {
@@ -161,7 +163,7 @@ const addService = async (req, res) => {
         userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
         userPhone: req.body.phone,
-        userAddress: req.body.userAddress,
+        userAddress: req.body.userAddress
     }
 
     const serviceAdded = await db.collection("serviceRequests").insertOne(addService);

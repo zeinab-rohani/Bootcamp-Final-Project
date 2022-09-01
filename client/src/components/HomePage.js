@@ -5,23 +5,18 @@ import { useContext } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
-
-    const {currentUser, setCurrentUser} = useContext(CurrentRequestContext);
-
+    const {setCurrentUser} = useContext(CurrentRequestContext);
     const { user } = useAuth0();
-    console.log("user", user)
     setCurrentUser(user);
-    console.log("currentuser", currentUser)
 
     const navigateProfile = useNavigate();
     const navigateServices = useNavigate();
 
     const handleClick = () => {
-        navigateServices("/services")
-    }
+        navigateServices("/services")}
+
     const newServicHandleClick = () => {
-        navigateProfile("./Profile")
-    }
+        navigateProfile("./Profile")}
 
     return (
         <Wrapper>
@@ -30,21 +25,22 @@ const HomePage = () => {
                 <Section>
                 {!user &&
                     <>
-                    <p>Need help with something in your house?</p>            
-                    <p>Sign in to find it:</p>
+                    <Div>Need help with something in your house?           
+                    Sign in to find it:</Div>
                     </>            
                     }
                     {user && 
                     <>
-                    <button onClick={() => newServicHandleClick()}>
-                    Click here to request the service you need
-                    </button>
-                    
+                    <Label>Click here to send a request for the service you need:
+                    </Label>
+                    <Button onClick={() => newServicHandleClick()}>
+                    Click here
+                    </Button>
                     <SpSection>
-                        <SpButton onClick={() => {handleClick();}}>Are yuo a service provider? click here
+                        <SpButton onClick={() => {handleClick();}}>
+                            Are yuo a service provider? Click here
                         </SpButton>
                     </SpSection>
-                    {/* <Link to="/profile">Visite my profile</Link> */}
                     </>
                 }
                 </Section>
@@ -69,7 +65,8 @@ position: relative;
 const Section = styled.div`
 position: absolute;
 width: 60%;
-height: 100px;
+height: 110px;
+padding: 5px;
 background-color: white;
 top: 15%;
 left: 20%;
@@ -85,20 +82,21 @@ opacity : 0.7;
 `;
 
 const Div = styled.div`
-height : 20px;
-font-size : large;
+height : 50px;
+font-size : x-large;
+padding: 20px;
 `;
 
 const Button = styled.button`
 border: 3px solid black;
 height: 30px;
+width: 80px;
 color: white;
 background-color: blue;
 `;
 
-const SigninSection = styled.div`
-margin-left : 300px;
-`;
+const Label = styled.label`
+font-size: x-large`;
 
 const SpSection = styled.div`
 font-size: large;

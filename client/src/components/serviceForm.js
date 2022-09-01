@@ -1,145 +1,117 @@
 import styled from "styled-components";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { CurrentRequestContext } from "./CurrentRequestContext";
-import { ThankyouMessage } from "./ThankYou";
 
 const ServiceForm = () => {
+    const{currentUser} = useContext(CurrentRequestContext);
+    // const {address, setAddress, firstName, setFirstName, lastName,
+    //     setLastName, phone, setPhone, description, setDescription,
+    //     serviceCategory, setServiceCategory, currentUser, title, setTitle}
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [serviceCategory, setServiceCategory] = useState("");
+    const [address, setAddress] = useState("")
+    const [isDisabled, setIsDisabled] = useState(false);
     const [requestFinalized, setRequestFinalized] = useState(false);
-    const {address, setAddress, firstName, setFirstName,
-        lastName, setLastName, email, setEmail, phone, setPhone,
-        description, setDescription, serviceCategory, setServiceCategory,
-        service, setService,
-        services, setServices, currentUser, setCurrentUser}
-        = useContext(CurrentRequestContext);
-        
-    // const navigateServices = useNavigate()
+    const [message, setMessage] = useState("");
 
-const submitHandle = (event) => {
-    // event.preventDefault();
-    setRequestFinalized(true);
+    const submitHandle = (event) => {
+        event.preventDefault();
+        if (
+        !firstName ||
+        !lastName ||
+        !title ||
+        !address ||
+        !phone ||
+        !description ||
+        !serviceCategory
+        ) {
+        setMessage("Some informations missing!");
+        } else {
+        setIsDisabled(false);
+        setRequestFinalized(true);
 
-    fetch("/api/add-service", {
-    method: "POST",
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-        userFirstname: firstName,
-        userLastname: lastName,
-        userEmail: email,
-        userPhone: phone,
-        userAddress: address,
-        description: description,
-        // serviceCategory: serviceCategory
-    }),
-    }).then((res) => {
-    return res.json();
-    });
-
-    // navigateServices("/services")
-}
-
+        fetch("/api/add-service", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            userFirstname: firstName,
+            userLastname: lastName,
+            userEmail: currentUser.email,
+            userPhone: phone,
+            userAddress: address,
+            title: title,
+            description: description,
+            serviceCategory: serviceCategory
+        }),
+        }).then((res) => {
+        return res.json();
+        });
+        }
+    }
     return(
         <>
-    <Wrapper>
-    {!requestFinalized ? (
-    <form>
-    <Label>
-        First name:
-    <UserInput
-        type="text"
-        placeholder="  first name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-    />
-    </Label>
-    <Label>
-        Last name:
-    <UserInput
-        type="text"
-        placeholder="  last name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-    />
-    </Label>
-    <Label>
-        email:
-    <UserInput
-        type="text"
-        placeholder="  email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-    />
-    </Label>
-    <Label>
-        Phone number:
-    <UserInput
-        type="text"
-        placeholder="  phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-    />
-    </Label>
-    <Label>
-        address:
-    <UserInput
-        type="text"
-        placeholder="  address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-    />
-    </Label>
-    <Label>
-        Please give us any details or description about your problem:
-    <UserInput
-        type="text"
-        placeholder="  description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-    />
-        </Label>
-        
-    <Label>service:</Label>
-    <select name="services" value={serviceCategory}
-    onSelect={(e) => setServiceCategory(e.target.value)}>
-            <option value="Plumbing">Plumbing</option>
-            <option value="heating">Heating</option>
-            <option value="painting">Painting</option>
-    </select>
-
-    <SubmitButton
-        type="submit"
-        value="Submit"
-        onClick={(event) => {
-            submitHandle();
-            // disabled={isdisabled}
-        }}
-        >
-        Submit 
-    </SubmitButton>
-    </form>)
-    // : <ThankyouMessage />}
-    :(
-        <>
-        <div>Thank you</div>
-       
-        </>
-
-    )}
-    </Wrapper> 
+        <Wrapper>
+        {!requestFinalized ? (
+            <form>
+            <Label>service:</Label>
+            <Select name="services" value={serviceCategory}
+            onChange={(e) => setServiceCategory(e.target.value)}>
+                <option value=""></option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="heating">Heating</option>
+                <option value="painting">Painting</option>
+            </Select>   
+            <Label> First name:
+            <UserInput type="text" placeholder="  first name" value={firstName}
+                onChange={(e) => setFirstName(e.target.value)} />
+            </Label>
+            <Label> Last name:
+            <UserInput type="text" placeholder="  last name" value={lastName}
+                onChange={(e) => setLastName(e.target.value)} />
+            </Label>
+            <Label> Title of the request:
+            <UserInput type="text" placeholder="  title" value={title}
+                onChange={(e) => setTitle(e.target.value)} />
+            </Label>
+            <Label> Phone number:
+            <UserInput type="text" placeholder="  phone" value={phone}
+                onChange={(e) => setPhone(e.target.value)} />
+            </Label>
+            <Label> address:
+            <UserInput  type="text"  placeholder="  address" value={address}
+                onChange={(e) => setAddress(e.target.value)} />
+            </Label>
+            <Label> Please provide a detailed description of your problem:
+            <UserInput type="text" placeholder="  description" value={description}
+                onChange={(e) => setDescription(e.target.value)} />
+            </Label>
+            {message != "" && <Message>{message}</Message>}
+            <SubmitButton type="submit" value="Submit"
+                onClick={submitHandle}
+                isDisabled={isDisabled} >
+            Submit 
+            </SubmitButton>
+            </form>)
+            :(
+            <div>Thank you for your request, it is being processed!</div>
+            )}
+        </Wrapper> 
         </>
     )
 }
 
 export default ServiceForm;
 
-
 const Wrapper = styled.div`
 padding : 20px;
 `;
-
 
 const Label = styled.label`
 color: black;
@@ -150,7 +122,7 @@ width : 70px;
 
 const UserInput = styled.input`
 height: 40px;
-width : 320px;
+width : 350px;
 border: 2px solid lightgray;
 margin-left: 10px;
 margin-right: 50px;
@@ -176,3 +148,14 @@ background-color: lightblue;
 }
 `;
 
+const Select = styled.select`
+height: 50px;
+font-size: large;
+`;
+
+const Message = styled.div`
+color: red;
+margin-bottom: 30px;
+font-size: large;
+font-weight: bold;
+`;

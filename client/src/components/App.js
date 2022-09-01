@@ -28,7 +28,7 @@ function App() {
         </Route>
         <Route exact path="/services/:_id" element={<ServiceDetail />}>
         </Route>
-        <Route exact path="/-user-services/:name" element={<UserServicesPage />}>
+        <Route exact path="/user-services" element={<UserServicesPage />}>
         </Route>
         <Route exact path="/confirmation" element={<ConfirmationPage />}>
         </Route>

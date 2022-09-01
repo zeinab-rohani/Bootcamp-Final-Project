@@ -8,57 +8,49 @@ const HomePage = () => {
 
     const {currentUser, setCurrentUser} = useContext(CurrentRequestContext);
 
-const { user } = useAuth0();
-console.log("user", user)
-setCurrentUser(user);
-console.log("currentuser", currentUser)
+    const { user } = useAuth0();
+    console.log("user", user)
+    setCurrentUser(user);
+    console.log("currentuser", currentUser)
 
-const navigateNewService = useNavigate();
-const navigateServices = useNavigate();
-const navigateUserServices = useNavigate();
+    const navigateProfile = useNavigate();
+    const navigateServices = useNavigate();
 
-const handleClick = () => {
-    navigateServices("/services")
-}
-const newServicHandleClick = () => {
-navigateNewService("/serviceForm")
-}
-const manageHandleClick = () => {
-navigateUserServices("/user-services")
-}
+    const handleClick = () => {
+        navigateServices("/services")
+    }
+    const newServicHandleClick = () => {
+        navigateProfile("./Profile")
+    }
 
-return (
-    <Wrapper>
-        <Container>
-            <Image src={process.env.PUBLIC_URL + "/image.png"} />
-            <Section>
-            {!user &&
-                <>
-                <p>Need help with something in your house?</p>            
-                <p>Sign in to find it:</p>
-                </>            
+    return (
+        <Wrapper>
+            <Container>
+                <Image src={process.env.PUBLIC_URL + "/image.png"} />
+                <Section>
+                {!user &&
+                    <>
+                    <p>Need help with something in your house?</p>            
+                    <p>Sign in to find it:</p>
+                    </>            
+                    }
+                    {user && 
+                    <>
+                    <button onClick={() => newServicHandleClick()}>
+                    Click here to request the service you need
+                    </button>
+                    
+                    <SpSection>
+                        <SpButton onClick={() => {handleClick();}}>Are yuo a service provider? click here
+                        </SpButton>
+                    </SpSection>
+                    {/* <Link to="/profile">Visite my profile</Link> */}
+                    </>
                 }
-                {user && 
-                <>
-                {/* <Div>Welcome {user.name}</Div> */}
-                <button onClick={() => newServicHandleClick()}>
-                Request a new service
-                </button>
-                <button onClick={() => manageHandleClick()} >
-                Manage my previous services
-                </button>
-                <SpSection>
-                    <label>If you are a service provider, click here:</label>
-                    <SpButton onClick={() => {handleClick();}}>
-                    Click </SpButton>
-                </SpSection>
-                {/* <Link to="/profile">Visite my profile</Link> */}
-                </>
-            }
-            </Section>
-        </Container>
-    </Wrapper>
-);
+                </Section>
+            </Container>
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.div`

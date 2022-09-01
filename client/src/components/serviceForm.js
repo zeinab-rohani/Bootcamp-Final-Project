@@ -6,11 +6,12 @@ import { ThankyouMessage } from "./ThankYou";
 
 const ServiceForm = () => {
     const [requestFinalized, setRequestFinalized] = useState(false);
-    const {address, setAddress,
-        firstName, setFirstName,
-        lastName, setLastName,
-        email, setEmail,
-        description, setDescription} = useContext(CurrentRequestContext);
+    const {address, setAddress, firstName, setFirstName,
+        lastName, setLastName, email, setEmail, phone, setPhone,
+        description, setDescription, serviceCategory, setServiceCategory,
+        service, setService,
+        services, setServices, currentUser, setCurrentUser}
+        = useContext(CurrentRequestContext);
         
     // const navigateServices = useNavigate()
 
@@ -28,8 +29,10 @@ const submitHandle = (event) => {
         userFirstname: firstName,
         userLastname: lastName,
         userEmail: email,
+        userPhone: phone,
         userAddress: address,
         description: description,
+        // serviceCategory: serviceCategory
     }),
     }).then((res) => {
     return res.json();
@@ -71,6 +74,15 @@ const submitHandle = (event) => {
     />
     </Label>
     <Label>
+        Phone number:
+    <UserInput
+        type="text"
+        placeholder="  phone"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+    />
+    </Label>
+    <Label>
         address:
     <UserInput
         type="text"
@@ -88,15 +100,10 @@ const submitHandle = (event) => {
         onChange={(e) => setDescription(e.target.value)}
     />
         </Label>
-        {/* <label>location:</label>
-        <select name="location" >
-            <option value="Montreal">Montreal</option>
-            <option value="Laval">Laval</option>
-            <option value="Blaineville">Blaineville</option>
-            <option value="Longueuil">Longueuil</option>
-    </select>     */}
+        
     <Label>service:</Label>
-    <select name="services" >
+    <select name="services" value={serviceCategory}
+    onSelect={(e) => setServiceCategory(e.target.value)}>
             <option value="Plumbing">Plumbing</option>
             <option value="heating">Heating</option>
             <option value="painting">Painting</option>
@@ -113,7 +120,14 @@ const submitHandle = (event) => {
         Submit 
     </SubmitButton>
     </form>)
-    : <ThankyouMessage />}
+    // : <ThankyouMessage />}
+    :(
+        <>
+        <div>Thank you</div>
+       
+        </>
+
+    )}
     </Wrapper> 
         </>
     )
@@ -161,3 +175,4 @@ letter-spacing: 0.1rem;
 background-color: lightblue;
 }
 `;
+

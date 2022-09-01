@@ -1,25 +1,17 @@
-import { useEffect } from "react";
+import styled from "styled-components";
+import { useContext, useState, useEffect } from "react";
+import { CurrentRequestContext } from "./CurrentRequestContext";
 
-useEffect(() => {
-fetch(`/api/items/${itemId}`, {
-    method: "GET",
-    headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    },
-})
-    .then((res) => {
-    return res.json();
-    })
-    .then((data) => {
-    setItemtDetails(data["data"]);
-    setRecentlyViewed((prevItem) => [...prevItem, data["data"]]);
-    });
-}, [itemId]);
+
 const ServiceDetail = () => {
-
+    const {service, setService,
+        services, setServices} = useContext(CurrentRequestContext)
     return (
-        <></>
+        <>
+        <div>{service.userAddress}</div>
+                    <div>{service.category}</div>
+                    <div>{service.description}</div>
+        </>
     )
 }
 

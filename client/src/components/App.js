@@ -3,15 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import HomePage from "./HomePage";
-import CompanyDetails from "./CompanyDetails";
-import CheckoutPage from "./CheckoutPage";
-import UserBooking from './UserBooking';
-import CompanyBooking from './CompanyBooking';
 import ConfirmationPage from "./ConfirmationPage";
 import Profile from './Profile';
 import ServiceForm from './ServiceForm';
 import Services from './AllServicesPage';
 import UserServicesPage from './UserServicesPage';
+import ServiceDetail from './ServiceDetail'; 
 
 
 function App() {
@@ -29,15 +26,9 @@ function App() {
         </Route>
         <Route exact path="/services" element={<Services />}>
         </Route>
-        <Route exact path="/user-services" element={<UserServicesPage />}>
+        <Route exact path="/services/:_id" element={<ServiceDetail />}>
         </Route>
-        <Route exact path="/companies/:companyId" element={<CompanyDetails />}>
-        </Route>
-        <Route exact path="/bookings-user/:userId" element={<UserBooking />}>
-        </Route>
-        <Route exact path="/bookings-company/:companyId" element={<CompanyBooking />}>
-        </Route>
-        <Route exact path="/checkout" element={<CheckoutPage />}>
+        <Route exact path="/-user-services/:name" element={<UserServicesPage />}>
         </Route>
         <Route exact path="/confirmation" element={<ConfirmationPage />}>
         </Route>

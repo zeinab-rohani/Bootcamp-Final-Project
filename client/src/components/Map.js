@@ -21,7 +21,7 @@ const Map = ({markerArr}) => {
       };
     
       return (
-        <div style={{ height: '80vh', width: '80%' }}>
+        <div style={{ height: '50vh', width: '50%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyA11X2WyanHuFT08dv3TE_C4HXsfQl7BR4" }}
             defaultCenter={defaultProps.center}

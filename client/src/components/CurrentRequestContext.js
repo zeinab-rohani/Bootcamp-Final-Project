@@ -11,23 +11,26 @@ const CurrentRequestProvider = ({ children }) => {
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
+    const [serviceCategory, setServiceCategory] = useState(null);
     const [description, setDescription] = useState(null);
     const [serviceProviders, setServiceProviders] = useState([]);
+    const [phone, setPhone] = useState(null);
 
     return (
         <CurrentRequestContext.Provider
         value={{
             service, setService,
             services, setServices,
-            currentUser,
-            setCurrentUser,
+            currentUser,setCurrentUser,
             serviceProvider, setServiceProvider,
+            serviceProviders, setServiceProviders,
+            phone, setPhone,
             address, setAddress,
             firstName, setFirstName,
             lastName, setLastName,
             email, setEmail,
             description, setDescription,
-            serviceProviders, setServiceProviders
+            serviceCategory, setServiceCategory
         }}
         >
         {children}

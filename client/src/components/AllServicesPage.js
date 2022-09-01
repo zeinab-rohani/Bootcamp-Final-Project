@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
+import { useNavigate, NavLink } from "react-router-dom";
 import Map from "./Map";
 import { Loading } from "./Loading";
 
-const Services = () => {
+const DisplayServices = () => {
     const [markerArr, setMarkerArr] = useState([
     {
         lat: null,
@@ -13,10 +14,11 @@ const Services = () => {
     }
     ]);
     const [loading, setLoading] = useState(false);
-
     const {currentUser, service, setService,
     services, setServices, serviceProviders,
     setServiceProviders} = useContext(CurrentRequestContext)
+
+    const navigateServiceDetaile = useNavigate()
 
     useEffect(() => {
         const getServiceProviders = async () => {
@@ -36,12 +38,16 @@ const Services = () => {
         serviceProviders.map((item) => {
             if (item.email === currentUser.email){
                 (
-                   emailCheck = [...emailCheck,{item}]
+                    emailCheck = [...emailCheck,{item}]
                 )
             }
         })
         console.log("e-ch",emailCheck)
-        if (emailCheck.lenght>=2) {
+        console.log("e-ch. leng",emailCheck.length)
+
+        if (emailCheck.length<=1)
+            {console.log("not allowed")
+        } else {
         setLoading(true);
         fetch("/api/services")
         .then((response) => response.json())
@@ -56,37 +62,49 @@ const Services = () => {
         ])
         setService((service) => [...service, {item}])
         setServices(data.data)
-
-        }))
-
         setLoading(false);
-        } else {
-            console.log("not allowed")
+        }))
         }
         };
-
-        
 console.log("markerArr", markerArr)  
 console.log("service", service)  
 
         return(
         <>
-        <button onClick={getAllServices}>Click here</button>
-        <section>
-        {services.map((item) => { 
-            return (
-                <>  
-                <div>{item.address}</div>
-                <div>{item.description}</div>
-                </>)
-        })}  
-        </section>
+        <Wrapper>    
+        <button onClick={getAllServices}>Click here to see all service requests</button>
         {loading ? (
         <Loading />
         ) : (
-        <Map markerArr={markerArr} />)}
+        <ServicesSection> 
+        {services?.map((item, index) => { 
+            console.log("item", item)
+            setService(item);
+            return (
+                <ServiceInfo key={index}>
+                    <div
+                    onClick={() => {
+                        navigateServiceDetaile(`/services/${service._id}`)
+                    }}
+                    >{service.userAddress}</div>
+                    <div>{service.category}</div>
+                    <div>{service.description}</div>
+                </ServiceInfo>)
+        })}  
+        <Map markerArr={markerArr} />
+        </ServicesSection>)}
+        </Wrapper>
         </>
     )
         }
 
-export default Services;
+export default DisplayServices;
+
+const Wrapper = styled.section`
+`;
+
+const ServicesSection = styled.section`
+`;
+
+const ServiceInfo = styled.div`
+`;

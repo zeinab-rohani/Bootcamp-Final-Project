@@ -18,9 +18,9 @@ const Header = () => {
                 <Div>Welcome {user.name}</Div>
                 }
                 <SigninSection>
-                {!user && <LoginButton />}
-                {user && <LogoutButton />}
-                {user && <Link to="/profile"></Link>}
+                {!isAuthenticated && <LoginButton />}
+                {isAuthenticated && <LogoutButton />}
+                {isAuthenticated && <Link to="/profile"></Link>}
                 </SigninSection>
             </Logo>
             </Link>

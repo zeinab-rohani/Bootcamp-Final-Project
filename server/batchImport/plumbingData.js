@@ -1,4 +1,4 @@
-const montrealPlumbingData = [
+const plumbingData = [
     {
         name: "Tomis Plomberie Inc",
         city: "Montreal",
@@ -110,102 +110,95 @@ const montrealPlumbingData = [
         url: "https://www.plomberpointclaire.com/",
         phone: "+15144533802",
         _Id: 10114
-    }
-    ]    
-
-const lavalPlumbingData = [
-{
-    name: "Plomberie Laval",
-    city: "Laval",
-    address: "1631 Rue du Couvent, Laval, QC H7W 3A8",
-    url: "https://plomberie-laval.ca/",
-    phone: "+14502410488",
-    _Id: 20100
-},
-{
-    name: "Plomberie Éric Lévesque - Laval",
-    city: "Laval",
-    address: "3030 Bd du Curé-Labelle #300, Laval, Quebec H7P 0H9",
-    url: "https://www.plomberieericlevesque.ca/",
-    phone: "+18774715777",
-    _Id: 20101
-},
-{
-    name: "Plombier Chris",
-    city: "Laval",
-    address: "152 Av. Bazin, Laval, QC H7N 4R1",
-    url: "https://plombier-chris.business.site/?utm_source=gmb&utm_medium=referral",
-    phone: "+14384108300",
-    _Id: 20102
-},
-{
-    name: "Plomberie Tanguay Ltée",
-    city: "Laval",
-    address: "4290 Rue Cyrille-Delage, Laval, QC H7K 3B2",
-    url: "https://plomberietanguay.com/",
-    phone: "+14506693970",
-    _Id: 20103
-},
-{
-    name: "Plomberie Jacques Thibault",
-    city: "Laval",
-    address: "3120 Rue Delaunay, Laval, QC H7L 5E1",
-    url: "https://plomberiejacques.com/",
-    phone: "+14506824330",
-    _Id: 20104
-},
-{
-    name: "Plomberie Aquadiva",
-    city: "Laval",
-    address: "186 Bd du Curé-Labelle, Sainte-Rose, QC H7L 2Z7",
-    url: "https://aquadiva.ca/",
-    phone: "+14506226999",
-    _Id: 20105
-},
-{
-    name: "Transcanada Drain",
-    city: "Laval",
-    address: "658 Rue Fleury, Laval, QC H7P 3B7",
-    url: "https://transcanadadrain.ca/",
-    phone: "+15146204047",
-    _Id: 20106
-},
-{
-    name: "Plomberie JJ",
-    city: "Laval",
-    address: "3473 Bd Sainte-Rose, Laval, QC H7P 4M1",
-    url: "https://plomberiejj.com/",
-    phone: "+15148083898",
-    _Id: 20107
-},
-{
-    name: "Plomberie L Numainville Inc",
-    city: "Laval",
-    address: "859 Rue Papineau # 1, Laval, QC H7E 2R9",
-    url: "https://plomberienumainville.com/",
-    phone: "+14506617053",
-    _Id: 20108
-},
-{
-    name: "Plomberie Farkas",
-    city: "Laval",
-    address: "1467 Rue Cunard, Laval, QC H7S 2H8",
-    url: "http://www.farkasplumbing.com/",
-    phone: "+14506298883",
-    _Id: 20109
-},
-{
-    name: "Plomberie Olivier Cloutier",
-    city: "Laval",
-    address: "1500 Boulevard des Laurentides, Laval, Quebec H7M 2N7",
-    url: "http://www.olivierplumbing.com/",
-    phone: "+14506694046",
-    _Id: 20110
-}
-]
-
-
-const longueuilPlumbingData = [
+    },
+    {
+        name: "Plomberie Laval",
+        city: "Laval",
+        address: "1631 Rue du Couvent, Laval, QC H7W 3A8",
+        url: "https://plomberie-laval.ca/",
+        phone: "+14502410488",
+        _Id: 20100
+    },
+    {
+        name: "Plomberie Éric Lévesque - Laval",
+        city: "Laval",
+        address: "3030 Bd du Curé-Labelle #300, Laval, Quebec H7P 0H9",
+        url: "https://www.plomberieericlevesque.ca/",
+        phone: "+18774715777",
+        _Id: 20101
+    },
+    {
+        name: "Plombier Chris",
+        city: "Laval",
+        address: "152 Av. Bazin, Laval, QC H7N 4R1",
+        url: "https://plombier-chris.business.site/?utm_source=gmb&utm_medium=referral",
+        phone: "+14384108300",
+        _Id: 20102
+    },
+    {
+        name: "Plomberie Tanguay Ltée",
+        city: "Laval",
+        address: "4290 Rue Cyrille-Delage, Laval, QC H7K 3B2",
+        url: "https://plomberietanguay.com/",
+        phone: "+14506693970",
+        _Id: 20103
+    },
+    {
+        name: "Plomberie Jacques Thibault",
+        city: "Laval",
+        address: "3120 Rue Delaunay, Laval, QC H7L 5E1",
+        url: "https://plomberiejacques.com/",
+        phone: "+14506824330",
+        _Id: 20104
+    },
+    {
+        name: "Plomberie Aquadiva",
+        city: "Laval",
+        address: "186 Bd du Curé-Labelle, Sainte-Rose, QC H7L 2Z7",
+        url: "https://aquadiva.ca/",
+        phone: "+14506226999",
+        _Id: 20105
+    },
+    {
+        name: "Transcanada Drain",
+        city: "Laval",
+        address: "658 Rue Fleury, Laval, QC H7P 3B7",
+        url: "https://transcanadadrain.ca/",
+        phone: "+15146204047",
+        _Id: 20106
+    },
+    {
+        name: "Plomberie JJ",
+        city: "Laval",
+        address: "3473 Bd Sainte-Rose, Laval, QC H7P 4M1",
+        url: "https://plomberiejj.com/",
+        phone: "+15148083898",
+        _Id: 20107
+    },
+    {
+        name: "Plomberie L Numainville Inc",
+        city: "Laval",
+        address: "859 Rue Papineau # 1, Laval, QC H7E 2R9",
+        url: "https://plomberienumainville.com/",
+        phone: "+14506617053",
+        _Id: 20108
+    },
+    {
+        name: "Plomberie Farkas",
+        city: "Laval",
+        address: "1467 Rue Cunard, Laval, QC H7S 2H8",
+        url: "http://www.farkasplumbing.com/",
+        phone: "+14506298883",
+        _Id: 20109
+    },
+    {
+        name: "Plomberie Olivier Cloutier",
+        city: "Laval",
+        address: "1500 Boulevard des Laurentides, Laval, Quebec H7M 2N7",
+        url: "http://www.olivierplumbing.com/",
+        phone: "+14506694046",
+        _Id: 20110
+    },
     {
         name: "Plomberie Syracuse",
         city: "Longueuil",
@@ -250,10 +243,7 @@ const longueuilPlumbingData = [
         url: "http://www.plomberiedelariviere.com/",
         phone: "+14504488137",
         _Id: 30105
-    }
-]    
-
-const blainvillePlumbingData = [
+    },
     {
         name: "Drain Fortin",
         city: "Blainville",
@@ -299,7 +289,6 @@ const blainvillePlumbingData = [
         phone: "+14504351007",
         _Id: 40105
     }
-]
+    ]    
 
-module.exports = { montrealPlumbingData, lavalPlumbingData,
-    longueuilPlumbingData,  blainvillePlumbingData };
+module.exports = { plumbingData };

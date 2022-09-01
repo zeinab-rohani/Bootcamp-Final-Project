@@ -148,17 +148,32 @@ const addService = async (req, res) => {
         userFirstname: req.body.userFirstname,
         userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
+        userPhone: req.body.phone,
         userAddress: req.body.userAddress,
         description: req.body.description,
         addressPositionLat: position.lat,
         addressPositionLng: position.lng
         };
 
-    const serviceAdded = await db.collection("serviceRequests").insertOne(addService);
-        res.status(201).json({ status: 201, data: serviceAdded });
-    } catch (err) {
-        res.status(500).json({ status: 500, message: err.message });
+    const addClient = {
+        userId: uuidv4(),
+        userFirstname: req.body.userFirstname,
+        userLastname: req.body.userLastname,
+        userEmail: req.body.userEmail,
+        userPhone: req.body.phone,
+        userAddress: req.body.userAddress,
     }
+
+    const serviceAdded = await db.collection("serviceRequests").insertOne(addService);
+        // res.status(201).json({ status: 201, data: serviceAdded });
+    
+    const clientAdded = await db.collection("clients").insertOne(addClient);
+    res.status(201).json({ status: 201, data: serviceAdded, clientAdded });
+
+    } catch (err) {
+    res.status(500).json({ status: 500, message: err.message });
+    }
+
     client.close();
 };
 

@@ -6,16 +6,9 @@ const CurrentRequestProvider = ({ children }) => {
     const [service, setService] = useState([{}]);
     const [services, setServices] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
-    const [serviceProvider, setServiceProvider] = useState([]);
-    const [address, setAddress] = useState(null);
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [serviceCategory, setServiceCategory] = useState(null);
-    const [description, setDescription] = useState(null);
-    const [title, setTitle] = useState(null);
+    const [client, setClient] = useState(null);
+    const [serviceProvider, setServiceProvider] = useState(null);
     const [serviceProviders, setServiceProviders] = useState([]);
-    const [phone, setPhone] = useState(null);
 
     return (
         <CurrentRequestContext.Provider
@@ -23,16 +16,9 @@ const CurrentRequestProvider = ({ children }) => {
             service, setService,
             services, setServices,
             currentUser,setCurrentUser,
+            client, setClient,
             serviceProvider, setServiceProvider,
-            serviceProviders, setServiceProviders,
-            phone, setPhone,
-            address, setAddress,
-            firstName, setFirstName,
-            lastName, setLastName,
-            email, setEmail,
-            title, setTitle,
-            description, setDescription,
-            serviceCategory, setServiceCategory
+            serviceProviders, setServiceProviders
         }}
         >
         {children}

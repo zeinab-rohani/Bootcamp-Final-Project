@@ -15,10 +15,10 @@ const DisplayServices = () => {
     ]);
     const [loading, setLoading] = useState(false);
     const {currentUser, service, setService,
-    services, setServices, serviceProviders,
-    setServiceProviders} = useContext(CurrentRequestContext)
+    services, setServices, setServiceProvider, serviceProviders,
+    setServiceProviders } = useContext(CurrentRequestContext);
 
-    const navigateServiceDetaile = useNavigate()
+    const navigateService = useNavigate()
 
     useEffect(() => {
         const getServiceProviders = async () => {
@@ -37,18 +37,14 @@ const DisplayServices = () => {
         let emailCheck = [{}];
         serviceProviders.map((item) => {
             if (item.email === currentUser.email){
-                (
-                    emailCheck = [...emailCheck,{item}]
-                )
+                (emailCheck = [...emailCheck,{item}])
             }
         })
-        console.log("e-ch",emailCheck)
-        console.log("e-ch. leng",emailCheck.length)
-
         if (emailCheck.length<=1)
             {console.log("not allowed")
         } else {
         setLoading(true);
+        setServiceProvider(currentUser)
         fetch("/api/services")
         .then((response) => response.json())
         .then((data) => data.data.map((item) => {
@@ -67,8 +63,13 @@ const DisplayServices = () => {
         }
         };
 console.log("markerArr", markerArr)  
-console.log("service", service)  
+console.log("service", service)
+console.log("service Id", service._id)
 
+
+        const confirmHandle = () => {
+            navigateService(`/services/${service._id}`) }
+        
         return(
         <>
         <Wrapper>    
@@ -76,23 +77,28 @@ console.log("service", service)
         {loading ? (
         <Loading />
         ) : (
+        <section>
         <ServicesSection> 
         {services?.map((item, index) => { 
-            console.log("item", item)
             setService(item);
             return (
-                <ServiceInfo key={index}>
-                    <div
-                    onClick={() => {
-                        navigateServiceDetaile(`/services/${service._id}`)
-                    }}
-                    >{service.userAddress}</div>
-                    <div>{service.category}</div>
-                    <div>{service.description}</div>
-                </ServiceInfo>)
+                <>
+                    <section>
+                    <Div> Category: {service.address}</Div>
+                    <Div> Title: {service.title}</Div>
+                    <Div> Description: {service.description}</Div>
+                    <button type="confirm" value="confirm"
+                        onClick={confirmHandle}
+                    >
+                    Send a suggestion
+                    </button>
+                    </section>
+                </>
+            )
         })}  
-        <Map markerArr={markerArr} />
-        </ServicesSection>)}
+        </ServicesSection>
+        <Map markerArr={markerArr} serviceId={service._id} />
+        </section>)}
         </Wrapper>
         </>
     )
@@ -104,7 +110,16 @@ const Wrapper = styled.section`
 `;
 
 const ServicesSection = styled.section`
+display: inline-block;
 `;
 
 const ServiceInfo = styled.div`
+`;
+
+const Div = styled.div`
+display: inline-block;
+padding: 5px;
+height: 30px;
+width: 100px;
+border: 3px solid gray;
 `;

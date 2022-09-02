@@ -3,10 +3,8 @@ import { useContext, useState } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceForm = () => {
-    const{currentUser} = useContext(CurrentRequestContext);
-    // const {address, setAddress, firstName, setFirstName, lastName,
-    //     setLastName, phone, setPhone, description, setDescription,
-    //     serviceCategory, setServiceCategory, currentUser, title, setTitle}
+    const{currentUser, setClient} = useContext(CurrentRequestContext);
+    
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
@@ -33,6 +31,7 @@ const ServiceForm = () => {
         } else {
         setIsDisabled(false);
         setRequestFinalized(true);
+        setClient(currentUser);
 
         fetch("/api/add-service", {
         method: "POST",
@@ -92,7 +91,7 @@ const ServiceForm = () => {
             <UserInput type="text" placeholder="  description" value={description}
                 onChange={(e) => setDescription(e.target.value)} />
             </Label>
-            {message != "" && <Message>{message}</Message>}
+            {message !== "" && <Message>{message}</Message>}
             <SubmitButton type="submit" value="Submit"
                 onClick={submitHandle}
                 isDisabled={isDisabled} >
@@ -100,8 +99,7 @@ const ServiceForm = () => {
             </SubmitButton>
             </form>)
             :(
-            <div>Thank you for your request, it is being processed!</div>
-            )}
+                <TextDiv>Thank you for your request, it is being processed!</TextDiv>)}
         </Wrapper> 
         </>
     )
@@ -158,4 +156,12 @@ color: red;
 margin-bottom: 30px;
 font-size: large;
 font-weight: bold;
+`;
+
+const TextDiv = styled.div`
+font-family: Arial, sans-serif;
+font-size:3em;
+letter-spacing:3px;
+color:black ;
+margin-top:70px;
 `;

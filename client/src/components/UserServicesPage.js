@@ -4,42 +4,36 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 import { useNavigate } from "react-router-dom";
 
 const UserServicesPage = () => {
-    const { service, setService, setServices, currentUser, setCurrentUser}
-        = useContext(CurrentRequestContext);
-        const navigateMyService = useNavigate()
-
+    const { currentUser } = useContext(CurrentRequestContext);
+    const navigateMyService = useNavigate()
     const[allServices, setAllServices] = useState([]);
 
         useEffect(() => {
             const fetchServices = async () => {
-              const res = await fetch("/api/services");
-              const { data } = await res.json();
-              setAllServices(data);
+            const res = await fetch("/api/services");
+            const { data } = await res.json();
+            setAllServices(data);
             };
-        
             fetchServices();
-          }, []);
-
+        }, []);
 
     return (
         <>
         <div>
             {allServices.map((item) => {
-
                 if(item.userEmail===currentUser.email){
-                    
                     return(
-                        <Section>
-                        <Div onClick={() => navigateMyService(`/services/${item._id}`)}> Id: {item._id}</Div>
-                        <Div> Category: {item.category}</Div>
-                        <Div> Title: {item.title}</Div>
-                        <Div> Description: {item.description}</Div>
-                        <Div> Status: {item.status}</Div>
-                        </Section>
-                    )
-                }
-            })
-            }
+                    <Section>
+                    <Div onClick={() => navigateMyService(`/services/${item._id}`)}>
+                        Id: {item._id}
+                    </Div>
+                    <Div> Category: {item.category}</Div>
+                    <Div> Title: {item.title}</Div>
+                    <Div> Description: {item.description}</Div>
+                    <Div> Status: {item.status}</Div>
+                    </Section>
+                )}
+            })}
         </div>
         </>
     )

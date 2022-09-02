@@ -184,8 +184,8 @@ const deleteService = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
-        const db = client.db("");
-        const result = await db.collection("orders")
+        const db = client.db("homeaide");
+        const result = await db.collection("serviceRequests")
         .deleteOne({ _id: ObjectId(serviceId) });
         res.status(204).json({ status: 204, data: orderId, message: "Service request is deleted" });
     } catch (err) {
@@ -193,6 +193,26 @@ const deleteService = async (req, res) => {
     }
     client.close();
 };
+
+// const updateService = async (req, res) => {
+//     const { serviceId } = req.params;
+//     const client = new MongoClient(MONGO_URI, options);
+//     try {
+//         await client.connect();
+//         const db = client.db("homeaide");
+//         const result = await db.collection("serviceRequests").updateOne({
+//             _id:  _id
+//         }, {
+//             $set: {
+//                 "suggestion": req.body.suggestion
+//             }
+//         })
+//         res.status(200).json({ status: 200, _id, data: result  });
+//         } catch (err) {
+//         res.status(500).json({ status: 500, data: req.body, message: err.message });
+//     }
+//     client.close();
+// };
 
 module.exports = {
     getCompanies,

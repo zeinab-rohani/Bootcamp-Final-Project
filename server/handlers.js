@@ -71,6 +71,24 @@ const getServices = async (req, res) => {
     client.close();
 };
 
+const getOffers = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db("homeaide");
+
+        const result = await db.collection("offers").find().toArray();
+        if (result) {
+        res.status(200).json({ status: 200, data: result });
+        } else {
+        res.status(404).json({ status: 404, data: [] });
+        }
+    } catch (err) {
+        res.status(500).json({ status: 500, data: req.body, message: err.message });
+    }
+    client.close();
+};
+
 const getService = async (req, res) => {
     const { serviceId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
@@ -154,7 +172,8 @@ const addService = async (req, res) => {
         description: req.body.description,
         addressPositionLat: position.lat,
         addressPositionLng: position.lng,
-        serviceCategory: req.body.serviceCategory
+        serviceCategory: req.body.serviceCategory,
+        isConfirmed: "false"
         };
 
     const addClient = {
@@ -179,6 +198,36 @@ const addService = async (req, res) => {
     client.close();
 };
 
+const addOffer = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+    await client.connect();
+    const db = client.db("homeaide");
+
+    const addOffer = {
+        serviceId: req.body.serviceId,
+        clientEmail: req.body.clientEmail,
+        serviceProvider: req.body.serviceProvider,
+        Address: req.body. Address,
+        title: req.body.title,
+        description: req.body.description,
+        serviceCategory: req.body.serviceCategory,
+        serviceProvider: req.body.serviceProvider,
+        offer: req.body.offer
+    }
+
+    const offerAdded = await db.collection("offers").insertOne(addOffer);
+        res.status(201).json({ status: 201, data: offerAdded });
+    
+    } catch (err) {
+    res.status(500).json({ status: 500, message: err.message });
+    }
+
+    client.close();
+};
+
+
 const deleteService = async (req, res) => {
     const { serviceId } = req.params;
     const client = new MongoClient(MONGO_URI, options);
@@ -194,33 +243,36 @@ const deleteService = async (req, res) => {
     client.close();
 };
 
-// const updateService = async (req, res) => {
-//     const { serviceId } = req.params;
-//     const client = new MongoClient(MONGO_URI, options);
-//     try {
-//         await client.connect();
-//         const db = client.db("homeaide");
-//         const result = await db.collection("serviceRequests").updateOne({
-//             _id:  _id
-//         }, {
-//             $set: {
-//                 "suggestion": req.body.suggestion
-//             }
-//         })
-//         res.status(200).json({ status: 200, _id, data: result  });
-//         } catch (err) {
-//         res.status(500).json({ status: 500, data: req.body, message: err.message });
-//     }
-//     client.close();
-// };
+const updateService = async (req, res) => {
+    const _id = req.params.id;
+    const client = new MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        const db = client.db("homeaide");
+        const result = await db.collection("serviceRequests").updateOne({
+            _id:  _id
+        }, {
+            $set: {
+                "isConfirmed": "true"
+            }
+        })
+        res.status(200).json({ status: 200, _id, data: result  });
+        } catch (err) {
+        res.status(500).json({ status: 500, data: req.body, message: err.message });
+    }
+    client.close();
+};
 
 module.exports = {
     getCompanies,
     getCompany,
     getServices,
     getService,
+    getOffers,
     getServicesByUser,
     getServicesByCompany,
     addService,
-    deleteService
+    addOffer,
+    deleteService,
+    updateService
 };

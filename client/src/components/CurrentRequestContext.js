@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 export const CurrentRequestContext = createContext();
 
 const CurrentRequestProvider = ({ children }) => {
-    const [service, setService] = useState([{}]);
+    const [service, setService] = useState(null);
     const [services, setServices] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [client, setClient] = useState(null);

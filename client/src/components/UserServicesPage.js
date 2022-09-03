@@ -4,7 +4,7 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 import { useNavigate } from "react-router-dom";
 
 const UserServicesPage = () => {
-    const { currentUser } = useContext(CurrentRequestContext);
+    const { currentUser, client, setClient, setService } = useContext(CurrentRequestContext);
     const navigateMyService = useNavigate()
     const[allServices, setAllServices] = useState([]);
 
@@ -22,6 +22,8 @@ const UserServicesPage = () => {
         <div>
             {allServices.map((item) => {
                 if(item.userEmail===currentUser.email){
+                    setClient(currentUser)
+                    setService(item)
                     return(
                     <Section>
                     <Div onClick={() => navigateMyService(`/services/${item._id}`)}>

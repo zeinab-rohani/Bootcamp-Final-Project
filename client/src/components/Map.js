@@ -1,22 +1,24 @@
-// import { useEffect, createRef } from "react"
+import { useContext } from "react"
+import { CurrentRequestContext } from "./CurrentRequestContext";
 import GoogleMapReact from "google-map-react";
 import { useNavigate } from "react-router-dom";
 
-const Map = ({markerArr, serviceId}) => {
-  const Client = ({ text }) => <div onClick={handleClick} >{text}</div>
+const Map = ({markerArr}) => {
+
   const navigateService = useNavigate()
+  const {setService} = useContext(CurrentRequestContext);
 
-  const handleClick = () => {
+  const Client = ({ text, id, item }) => <div
+  onClick={()=> {navigateService(`/services/${id}`)
+  setService(item)}}>{text}</div>
+  console.log("markerArr", markerArr)  
 
-    navigateService(`/services/${serviceId}`)
-  }
-  
   const defaultProps = {
       center: {
         lat: 45.48412,
         lng: -73.631813
       },
-      zoom: 11
+      zoom: 9
     };
   
     return (
@@ -27,9 +29,9 @@ const Map = ({markerArr, serviceId}) => {
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
-          {markerArr.map(mark => (
+          {markerArr.map((item )=> (
           <Client 
-          lat={mark.lat} lng={mark.lng} text={mark.text} 
+          lat={item.lat} lng={item.lng} text={item.text} id={item.id} item={item.item}
           />
           ))}
         </GoogleMapReact>

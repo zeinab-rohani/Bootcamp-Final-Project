@@ -17,10 +17,13 @@ const {
     getCompany,
     getServices,
     getService,
+    getOffers,
     getServicesByUser,
     getServicesByCompany,
     addService,
-    deleteService
+    addOffer,
+    deleteService,
+    updateService
 } = require("./handlers");
 
 express()
@@ -52,11 +55,14 @@ express()
 .get("/api/companies", getCompanies)
 .get("/api/companies/:companyId", getCompany)
 .get("/api/services", getServices)
+.get("/api/offers", getOffers)
 .get("/api/services/:serviceId", getService)
 .get("/api/services-user/:userId", getServicesByUser)
 .get("/api/services-company/:companyId", getServicesByCompany)
 .post("/api/add-service", addService)
+.post("/api/add-offer", addOffer)
 .delete("/api/delete-service/:serviceId", deleteService)
+.patch("/api/update-service", updateService)
 
 .get("*", (req, res) => {
     res.status(404).json({

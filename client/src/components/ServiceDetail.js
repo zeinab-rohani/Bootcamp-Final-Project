@@ -1,42 +1,100 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 
 const ServiceDetail = () => {
-    const {service, client, serviceProvider} = useContext(CurrentRequestContext)
-    const [suggestion, setSuggestion] = useState("");
+    const {client, serviceProvider, service} = useContext(CurrentRequestContext)
+    const [myoffer, setMyOffer] = useState(null);
+    const [offers, setOffers] = useState([]);
 
-const confirmHandle = () => {
-}
+    useEffect(() => {
+        const getOffers = async () => {
+            const res = await fetch("/api/offers");
+            const { data } = await res.json();
+            setOffers(data);
+            };
+            getOffers();
+                
+        }, []);
+        console.log("offers", offers)
+    
+    const handleConfirm = () =>{
+    fetch("/api/update-service", {
+        method: "PATCH",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({
+        // })
+        }).then((res) => {
+            return res.json();
+    }); 
+    };
+
+    const offerHandle =() => {
+        fetch("/api/add-offer", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                serviceId: service._id,
+                clientEmail: service.email,
+                serviceProvider: serviceProvider.name,
+                Address: service.address,
+                title: service.title,
+                description: service.description,
+                serviceCategory: service.serviceCategory,
+                serviceProvider: serviceProvider,
+                offer: myoffer
+            }),
+            }).then((res) => {
+            return res.json();
+            });
+            }
+
+
     return (
-        <>
+        <>{client &&
         <ClientSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
             <Div> Description: {service.description}</Div>
+            {offers?.map((item)=>{
+                return(
+                    <section>
+                    <Div>Offer: {item.offer}</Div>
+                    <Div>Companie: {item.serviceProvider.name}</Div>
+                    </section>
+                )
+            })}
             <section>
             <button type="confirm" value="confirm"
-                onClick={confirmHandle}
+            onClick={handleConfirm}
             >
-            confirm 
+            confirm the offer
             </button>
             </section>
-        </ClientSection>
+        </ClientSection>}
+        {serviceProvider &&
         <ServiceProviderSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
             <Div> Description: {service.description}</Div>
-            <Label> Your suggestion for client:
-           <UserInput type="text" placeholder="  suggestion" value={suggestion}
-                onChange={(e) => setSuggestion(e.target.value)} />
+            <Label> Your Offer for the service:
+            <UserInput type="text" placeholder="  offer" 
+                onChange={(event) => 
+                    setMyOffer(event.target.value)} />
             </Label>
-          <button type="confirm" value="confirm"
-                onClick={confirmHandle}
+            <button type="confirm" value="confirm"
+                        onClick={offerHandle}
             >
-            confirm 
-             </button>
-        </ServiceProviderSection>
+            Submit the offer
+            </button>
+        </ServiceProviderSection>}
         </>
 
     )

@@ -51,7 +51,7 @@ font-size: large
 `;
 
 const SigninSection = styled.div`
-margin-left : 1100px;
+margin-left : 800px;
 font-size: large;
 `;
 

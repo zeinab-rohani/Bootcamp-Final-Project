@@ -15,7 +15,7 @@ const DisplayServices = () => {
     ]);
     const [loading, setLoading] = useState(false);
     const {currentUser, service, setService,
-    services, setServices, setServiceProvider, serviceProviders,
+    services, setServices,serviceProvider, setServiceProvider, serviceProviders,
     setServiceProviders } = useContext(CurrentRequestContext);
 
     const navigateService = useNavigate()
@@ -31,7 +31,6 @@ const DisplayServices = () => {
                 getServiceProviders();
                 
         }, []);
-        console.log("providers", serviceProviders)
 
     const getAllServices = () => {
         let emailCheck = [{}];
@@ -51,25 +50,19 @@ const DisplayServices = () => {
         setMarkerArr((markerArr)=>[
             ...markerArr,
             {
+                item: item,
+                id : item._id,
                 lat: item.addressPositionLat,
                 lng: item.addressPositionLng,
                 text: "client"
             }
         ])
-        setService((service) => [...service, {item}])
         setServices(data.data)
         setLoading(false);
         }))
         }
         };
-console.log("markerArr", markerArr)  
-console.log("service", service)
-console.log("service Id", service._id)
-
-
-        const confirmHandle = () => {
-            navigateService(`/services/${service._id}`) }
-        
+    
         return(
         <>
         <Wrapper>    
@@ -79,25 +72,26 @@ console.log("service Id", service._id)
         ) : (
         <section>
         <ServicesSection> 
-        {services?.map((item, index) => { 
-            setService(item);
+        {services?.map((item) => { 
             return (
-                <>
-                    <section>
-                    <Div> Category: {service.address}</Div>
-                    <Div> Title: {service.title}</Div>
-                    <Div> Description: {service.description}</Div>
-                    <button type="confirm" value="confirm"
-                        onClick={confirmHandle}
-                    >
-                    Send a suggestion
-                    </button>
-                    </section>
-                </>
+            <>
+                <section key={item.id} >
+                <Div> Address: {item.address}</Div>
+                <Div> Title: {item.title}</Div>
+                <Div> Description: {item.description}</Div>
+                <button type="confirm" value="confirm"
+                    onClick={()=> {navigateService(`/services/${item._id}`)
+                    setService(item)}
+                }
+                >
+                Send an offer
+                </button>
+                </section>
+            </>
             )
         })}  
         </ServicesSection>
-        <Map markerArr={markerArr} serviceId={service._id} />
+        <Map markerArr={markerArr} />
         </section>)}
         </Wrapper>
         </>

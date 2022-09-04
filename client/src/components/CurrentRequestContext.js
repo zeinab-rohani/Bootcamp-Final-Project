@@ -7,6 +7,7 @@ const CurrentRequestProvider = ({ children }) => {
     const [services, setServices] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [client, setClient] = useState(null);
+    const [clients, setClients] = useState([]);
     const [serviceProvider, setServiceProvider] = useState(null);
     const [serviceProviders, setServiceProviders] = useState([]);
 
@@ -17,6 +18,7 @@ const CurrentRequestProvider = ({ children }) => {
             services, setServices,
             currentUser,setCurrentUser,
             client, setClient,
+            clients, setClients,
             serviceProvider, setServiceProvider,
             serviceProviders, setServiceProviders
         }}

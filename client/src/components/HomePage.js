@@ -1,22 +1,43 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
-    const {setCurrentUser} = useContext(CurrentRequestContext);
+    const {setServiceProvider, serviceProviders,
+        setServiceProviders, client,
+        serviceProvider}
+        = useContext(CurrentRequestContext);
     const { user } = useAuth0();
-    setCurrentUser(user);
-
     const navigateProfile = useNavigate();
     const navigateServices = useNavigate();
 
-    const handleClick = () => {
-        navigateServices("/services")}
+    useEffect(() => {
+        const getServiceProviders = async () => {
+            const res = await fetch("/api/companies");
+            const { data } = await res.json();
+            setServiceProviders(data);
+            };
+        
+            getServiceProviders();
+    }, [])
 
-    const newServicHandleClick = () => {
-        navigateProfile("./Profile")}
+    const getUserType = () =>{
+        let emailCheck = [{}];
+        serviceProviders.map((item) => {
+            if (item.email === user.email){
+                (emailCheck = [...emailCheck,{item}])
+                setServiceProvider(item.email)
+            }
+        })
+        if (emailCheck.length>1){
+        navigateServices("./services")
+        } else {
+        navigateProfile("./Profile")
+        }
+        console.log("email check", emailCheck)
+    }
 
     return (
         <Wrapper>
@@ -28,22 +49,16 @@ const HomePage = () => {
                     <Div>Need help with something in your house?           
                     Sign in to find it:</Div>
                     </>            
-                    }
-                    {user && 
-                    <>
-                    <Label>Click here to send a request for the service you need:
-                    </Label>
-                    <Button onClick={() => newServicHandleClick()}>
-                    Click here
-                    </Button>
-                    <SpSection>
-                        <SpButton onClick={() => {handleClick();}}>
-                            Are yuo a service provider? Click here
-                        </SpButton>
-                    </SpSection>
-                    </>
-                }
-                </Section>
+                } 
+                {user &&
+                <>
+                <div>You are logged in, click to continue</div>
+                <Button
+                onClick={getUserType}
+            >
+            </Button>
+                </> }
+                </Section> 
             </Container>
         </Wrapper>
     );

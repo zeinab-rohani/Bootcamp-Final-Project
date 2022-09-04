@@ -14,7 +14,7 @@ const DisplayServices = () => {
     }
     ]);
     const [loading, setLoading] = useState(false);
-    const {currentUser, service, setService,
+    const {service, setService,
     services, setServices,serviceProvider, setServiceProvider, serviceProviders,
     setServiceProviders } = useContext(CurrentRequestContext);
 
@@ -33,17 +33,16 @@ const DisplayServices = () => {
         }, []);
 
     const getAllServices = () => {
-        let emailCheck = [{}];
-        serviceProviders.map((item) => {
-            if (item.email === currentUser.email){
-                (emailCheck = [...emailCheck,{item}])
-            }
-        })
-        if (emailCheck.length<=1)
-            {console.log("not allowed")
-        } else {
+        // let emailCheck = [{}];
+        // serviceProviders.map((item) => {
+        //     if (item.email === currentUser.email){
+        //         (emailCheck = [...emailCheck,{item}])
+        //     }
+        // })
+        // if (emailCheck.length<=1)
+        //     {console.log("not allowed")
+        // } else {
         setLoading(true);
-        setServiceProvider(currentUser)
         fetch("/api/services")
         .then((response) => response.json())
         .then((data) => data.data.map((item) => {
@@ -60,9 +59,7 @@ const DisplayServices = () => {
         setServices(data.data)
         setLoading(false);
         }))
-        }
-        };
-    
+        }    
         return(
         <>
         <Wrapper>    
@@ -96,7 +93,7 @@ const DisplayServices = () => {
         </Wrapper>
         </>
     )
-        }
+};       
 
 export default DisplayServices;
 

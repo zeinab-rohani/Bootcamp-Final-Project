@@ -4,9 +4,12 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 
 
 const ServiceDetail = () => {
-    const {client, serviceProvider, service} = useContext(CurrentRequestContext)
+    const {user, serviceProvider, service} = useContext(CurrentRequestContext)
     const [myoffer, setMyOffer] = useState(null);
     const [offers, setOffers] = useState([]);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
+    console.log("service provider ", serviceProvider)
 
     useEffect(() => {
         const getOffers = async () => {
@@ -20,17 +23,18 @@ const ServiceDetail = () => {
         console.log("offers", offers)
     
     const handleConfirm = () =>{
-    fetch("/api/update-service", {
-        method: "PATCH",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        // body: JSON.stringify({
-        // })
-        }).then((res) => {
-            return res.json();
-    }); 
+        setIsConfirmed(true)   
+        fetch("/api/update-service", {
+            method: "PATCH",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            // body: JSON.stringify({
+            // })
+            }).then((res) => {
+                return res.json();
+        }); 
     };
 
     const offerHandle =() => {
@@ -58,28 +62,29 @@ const ServiceDetail = () => {
 
 
     return (
-        <>{client &&
+        <>
+        {/* // <>{!serviceProvider && */}
         <ClientSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
             <Div> Description: {service.description}</Div>
             {offers?.map((item)=>{
+                if(item.serviceId===service._id){
                 return(
                     <section>
                     <Div>Offer: {item.offer}</Div>
                     <Div>Companie: {item.serviceProvider.name}</Div>
-                    </section>
-                )
-            })}
-            <section>
-            <button type="confirm" value="confirm"
+                    <button type="confirm" value="confirm"
             onClick={handleConfirm}
             >
             confirm the offer
             </button>
-            </section>
-        </ClientSection>}
-        {serviceProvider &&
+            {isConfirmed &&
+            <div> The offer is confirmed</div>}
+                    </section>
+                )}
+            })}
+        {/* {serviceProvider && */}
         <ServiceProviderSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
@@ -94,7 +99,9 @@ const ServiceDetail = () => {
             >
             Submit the offer
             </button>
-        </ServiceProviderSection>}
+        </ServiceProviderSection>
+        </ClientSection>
+
         </>
 
     )

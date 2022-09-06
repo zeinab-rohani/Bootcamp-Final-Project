@@ -5,13 +5,14 @@ import { useContext, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
-    const {setServiceProvider, serviceProviders,
-        setServiceProviders, client,
-        serviceProvider}
+    const {setServiceProvider, serviceProviders, serviceProvider,
+        setServiceProviders, setUser}
         = useContext(CurrentRequestContext);
     const { user } = useAuth0();
+    setUser(user);
+    console.log("user", user)
     const navigateProfile = useNavigate();
-    const navigateServices = useNavigate();
+    const navigateServiceProvider = useNavigate();
 
     useEffect(() => {
         const getServiceProviders = async () => {
@@ -32,13 +33,13 @@ const HomePage = () => {
             }
         })
         if (emailCheck.length>1){
-        navigateServices("./services")
+        navigateServiceProvider("./service-provider")
         } else {
         navigateProfile("./Profile")
         }
         console.log("email check", emailCheck)
     }
-
+console.log("service provider ", serviceProvider)
     return (
         <Wrapper>
             <Container>

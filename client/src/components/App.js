@@ -8,7 +8,8 @@ import ServiceForm from './ServiceForm';
 import Services from './AllServicesPage';
 import UserServicesPage from './UserServicesPage';
 import ServiceDetail from './ServiceDetail'; 
-import SuggestionPage from './SuggestionPage.js'
+import ServiceProviderPage from './ServiceProviderPage';
+import Offers from './Offers';
 
 function App() {
 
@@ -23,13 +24,15 @@ function App() {
         </Route>
         <Route exact path="/serviceForm" element={<ServiceForm />}>
         </Route>
-        <Route exact path="/services" element={<Services />}>
+        <Route exact path="/service-provider/services" element={<Services />}>
+        </Route>
+        <Route exact path="/service-provider/offers" element={<Offers />}>
+        </Route>
+        <Route exact path="/service-provider" element={<ServiceProviderPage />}>
         </Route>
         <Route exact path="/services/:_id" element={<ServiceDetail />}>
         </Route>
         <Route exact path="/user-services" element={<UserServicesPage />}>
-        </Route>
-        <Route exact path="/suggestions" element={<SuggestionPage />}>
         </Route>
       </Routes>
     </Router>

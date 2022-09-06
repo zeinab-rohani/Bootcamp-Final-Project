@@ -5,7 +5,7 @@ export const CurrentRequestContext = createContext();
 const CurrentRequestProvider = ({ children }) => {
     const [service, setService] = useState(null);
     const [services, setServices] = useState([]);
-    const [currentUser, setCurrentUser] = useState({});
+    const [user, setUser] = useState(null);
     const [client, setClient] = useState(null);
     const [clients, setClients] = useState([]);
     const [serviceProvider, setServiceProvider] = useState(null);
@@ -16,7 +16,7 @@ const CurrentRequestProvider = ({ children }) => {
         value={{
             service, setService,
             services, setServices,
-            currentUser,setCurrentUser,
+            user,setUser,
             client, setClient,
             clients, setClients,
             serviceProvider, setServiceProvider,

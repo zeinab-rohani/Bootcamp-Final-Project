@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceForm = () => {
-    const{currentUser, setClient} = useContext(CurrentRequestContext);
+    const{user, client, setClient, clients, setClients} = useContext(CurrentRequestContext);
     
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -31,7 +31,7 @@ const ServiceForm = () => {
         } else {
         setIsDisabled(false);
         setRequestFinalized(true);
-        setClient(currentUser);
+        setClient(user);
 
         fetch("/api/add-service", {
         method: "POST",
@@ -42,7 +42,7 @@ const ServiceForm = () => {
         body: JSON.stringify({
             userFirstname: firstName,
             userLastname: lastName,
-            userEmail: currentUser.email,
+            userEmail: user.email,
             userPhone: phone,
             userAddress: address,
             title: title,
@@ -53,6 +53,33 @@ const ServiceForm = () => {
         return res.json();
         });
         }
+        console.log("client", client)
+        const getClients = async () => {
+            const res = await fetch("/api/clients");
+            const { data } = await res.json();
+            setClients(data);
+            };
+            getClients();
+
+            if (!clients.includes(client))
+            {
+                fetch("/api/add-client", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userFirstname: firstName,
+                        userLastname: lastName,
+                        userEmail: user.email,
+                        userPhone: phone,
+                        userAddress: address,
+                    }),
+                    }).then((res) => {
+                    return res.json();
+                    });
+            }
     }
     return(
         <>

@@ -4,9 +4,11 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 import { useNavigate } from "react-router-dom";
 
 const UserServicesPage = () => {
-    const { currentUser, client, setClient, setService } = useContext(CurrentRequestContext);
+    const { user, setService } = useContext(CurrentRequestContext);
     const navigateMyService = useNavigate()
     const[allServices, setAllServices] = useState([]);
+console.log("user", user)
+console.log("useremail", user.email)
 
         useEffect(() => {
             const fetchServices = async () => {
@@ -21,8 +23,7 @@ const UserServicesPage = () => {
         <>
         <div>
             {allServices.map((item) => {
-                if(item.userEmail===currentUser.email){
-                    setClient(currentUser)
+                if(item.userEmail===user.email){
                     setService(item)
                     return(
                     <Section>

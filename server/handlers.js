@@ -180,7 +180,7 @@ const addService = async (req, res) => {
     const db = client.db("homeaide");
 
     const addService = {
-        userId: uuidv4(),
+        serviceId: uuidv4(),
         userFirstname: req.body.userFirstname,
         userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
@@ -194,20 +194,8 @@ const addService = async (req, res) => {
         isConfirmed: "false"
         };
 
-    const addClient = {
-        userId: uuidv4(),
-        userFirstname: req.body.userFirstname,
-        userLastname: req.body.userLastname,
-        userEmail: req.body.userEmail,
-        userPhone: req.body.phone,
-        userAddress: req.body.userAddress
-    }
-
     const serviceAdded = await db.collection("serviceRequests").insertOne(addService);
-        // res.status(201).json({ status: 201, data: serviceAdded });
-    
-    const clientAdded = await db.collection("clients").insertOne(addClient);
-    res.status(201).json({ status: 201, data: serviceAdded, clientAdded });
+    res.status(201).json({ status: 201, data: serviceAdded });
 
     } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
@@ -245,6 +233,33 @@ const addOffer = async (req, res) => {
     client.close();
 };
 
+const addClient = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+    await client.connect();
+    const db = client.db("homeaide");
+
+    const addClient = {
+        userId: uuidv4(),
+        userFirstname: req.body.userFirstname,
+        userLastname: req.body.userLastname,
+        userEmail: req.body.userEmail,
+        userPhone: req.body.phone,
+        userAddress: req.body.userAddress
+    }
+
+    const clientAdded = await db.collection("clients").insertOne(addClient);
+    res.status(201).json({ status: 201, data: serviceAdded, clientAdded });
+
+    } catch (err) {
+    res.status(500).json({ status: 500, message: err.message });
+    }
+
+    client.close();
+};
+
+
 // const addUser = async (req, res) => {
 //     const client = new MongoClient(MONGO_URI, options);
 //     const user = req.body.user;
@@ -279,19 +294,18 @@ const deleteService = async (req, res) => {
 };
 
 const updateService = async (req, res) => {
-    const _id = req.params.id;
+    const { serviceId } = req.params.id;
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
-        const result = await db.collection("serviceRequests").updateOne({
-            _id:  _id
-        }, {
+        const result = await db.collection("serviceRequests")
+        .updateOne({ _id: serviceId }, {
             $set: {
                 "isConfirmed": "true"
             }
         })
-        res.status(200).json({ status: 200, _id, data: result  });
+        res.status(200).json({ status: 200, serviceId, data: result  });
         } catch (err) {
         res.status(500).json({ status: 500, data: req.body, message: err.message });
     }
@@ -309,7 +323,7 @@ module.exports = {
     getServicesByCompany,
     addService,
     addOffer,
-    // addUser,
+    addClient,
     deleteService,
     updateService
 };

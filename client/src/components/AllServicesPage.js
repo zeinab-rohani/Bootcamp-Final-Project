@@ -14,12 +14,12 @@ const DisplayServices = () => {
     }
     ]);
     const [loading, setLoading] = useState(false);
-    const {service, setService,
-    services, setServices,serviceProvider, setServiceProvider, serviceProviders,
+    const {setService, services, setServices,
     setServiceProviders } = useContext(CurrentRequestContext);
 
     const navigateService = useNavigate()
-
+    
+    // get all availables services and display on the table and on the map.
     useEffect(() => {
         const getServiceProviders = async () => {
             setLoading(true);
@@ -29,41 +29,28 @@ const DisplayServices = () => {
             setLoading(false);
             };
                 getServiceProviders();
-                
-        }, []);
+    
+            fetch("/api/services")
+            .then((response) => response.json())
+            .then((data) => data.data.map((item) => {
+            setMarkerArr((markerArr)=>[
+                ...markerArr,
+                {
+                    item: item,
+                    id : item._id,
+                    lat: item.addressPositionLat,
+                    lng: item.addressPositionLng,
+                    text: "client"
+                }
+            ])
+            setServices(data.data)
+            setLoading(false);
+            }))
+    }, []);
 
-    const getAllServices = () => {
-        // let emailCheck = [{}];
-        // serviceProviders.map((item) => {
-        //     if (item.email === currentUser.email){
-        //         (emailCheck = [...emailCheck,{item}])
-        //     }
-        // })
-        // if (emailCheck.length<=1)
-        //     {console.log("not allowed")
-        // } else {
-        setLoading(true);
-        fetch("/api/services")
-        .then((response) => response.json())
-        .then((data) => data.data.map((item) => {
-        setMarkerArr((markerArr)=>[
-            ...markerArr,
-            {
-                item: item,
-                id : item._id,
-                lat: item.addressPositionLat,
-                lng: item.addressPositionLng,
-                text: "client"
-            }
-        ])
-        setServices(data.data)
-        setLoading(false);
-        }))
-        }    
         return(
         <>
         <Wrapper>    
-        <button onClick={getAllServices}>Click here to see all service requests</button>
         {loading ? (
         <Loading />
         ) : (

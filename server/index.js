@@ -23,7 +23,7 @@ const {
     getServicesByCompany,
     addService,
     addOffer,
-    // addUser,
+    addClient,
     deleteService,
     updateService
 } = require("./handlers");
@@ -64,7 +64,7 @@ express()
 .get("/api/services-company/:companyId", getServicesByCompany)
 .post("/api/add-service", addService)
 .post("/api/add-offer", addOffer)
-// .post("/api/add-user", addUser)
+.post("/api/add-client", addClient)
 .delete("/api/delete-service/:serviceId", deleteService)
 .patch("/api/update-service", updateService)
 

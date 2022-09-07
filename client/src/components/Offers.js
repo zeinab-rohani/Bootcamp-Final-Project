@@ -7,7 +7,7 @@ import { Loading } from "./Loading";
 const Offers = () => {
     const [loading, setLoading] = useState(false);
 
-    const {serviceProvider} = useContext(CurrentRequestContext)
+    const {user, serviceProvider, setServiceProvider} = useContext(CurrentRequestContext)
     const navigateMyService = useNavigate()
 
     const [offers, setOffers] = useState([]);
@@ -28,15 +28,30 @@ return(
         <Loading />
         ) : (<section>
     {offers?.map((item)=>{
-                if(item.serviceProvider===serviceProvider){
+     console.log("item sp", item.serviceProvider)  
+     console.log("serviceProvider", serviceProvider)
+     console.log("user", user)  
+
+     setServiceProvider(user.name)
+ 
                 return(
-                    <section onClick={() => navigateMyService(`/services/${item._id}`)}>
-                    <div> service Title: {item.title}</div>
-                    <div> serviceId: {item.serviceId}</div>
-                    <div>Offer: {item.offer}</div>
+                    <>
+                    {item.serviceProvider==serviceProvider ? (
+                        <section>
+                    {/* <section onClick={() => navigateMyService(`/services/${item._id}`)}> */}
+                    <Div> service Title: {item.title}</Div>
+                    <Div> Description: {item.description}</Div>
+                    <Div> clientEmail: {item.clientEmail}</Div>
+                    <Div> address: {item.address}</Div>
+                    <Div> offer: {item.offer}</Div>
+                    {item.isConfirmed == true &&
+                    <Div> Offer is confirmed </Div>}
                     </section>)
-                }
+                    : <div>test</div>}
+                    {/* </section> */}
+                    </>)
                 })}
+                
             </section>
         )}    
     </>
@@ -44,3 +59,11 @@ return(
 }
 
 export default Offers;
+
+const Div = styled.div`
+display: inline-block;
+padding: 5px;
+height: 50px;
+width: 250px;
+border: 3px solid gray;
+`;

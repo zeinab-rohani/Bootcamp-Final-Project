@@ -10,6 +10,7 @@ const ServiceDetail = () => {
     const [isConfirmed, setIsConfirmed] = useState(false);
 
     console.log("service provider ", serviceProvider)
+    console.log("service ", service)
 
     useEffect(() => {
         const getOffers = async () => {
@@ -23,20 +24,20 @@ const ServiceDetail = () => {
         console.log("offers", offers)
     
     const handleConfirm = () =>{
-        setIsConfirmed(true)   
         fetch("/api/update-service", {
             method: "PATCH",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            // body: JSON.stringify({
-            // })
+            body: JSON.stringify({
+                serviceId: service._id,
+            }),
             }).then((res) => {
-                return res.json();
-        }); 
+            return res.json();
+            });
     };
-
+    console.log("service id",service._id)
     const offerHandle =() => {
         fetch("/api/add-offer", {
             method: "POST",
@@ -48,7 +49,7 @@ const ServiceDetail = () => {
                 serviceId: service._id,
                 clientEmail: service.email,
                 serviceProvider: serviceProvider.name,
-                Address: service.address,
+                address: service.address,
                 title: service.title,
                 description: service.description,
                 serviceCategory: service.serviceCategory,
@@ -63,7 +64,7 @@ const ServiceDetail = () => {
 
     return (
         <>
-        {/* // <>{!serviceProvider && */}
+        {!serviceProvider &&
         <ClientSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
@@ -84,7 +85,8 @@ const ServiceDetail = () => {
                     </section>
                 )}
             })}
-        {/* {serviceProvider && */}
+        </ClientSection> }   
+        {serviceProvider &&
         <ServiceProviderSection>
             <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
@@ -99,8 +101,8 @@ const ServiceDetail = () => {
             >
             Submit the offer
             </button>
-        </ServiceProviderSection>
-        </ClientSection>
+        </ServiceProviderSection>}
+    
 
         </>
 

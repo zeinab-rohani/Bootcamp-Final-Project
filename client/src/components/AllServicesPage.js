@@ -57,9 +57,13 @@ const DisplayServices = () => {
         <section>
         <ServicesSection> 
         {services?.map((item) => { 
+            console.log("itemisconfirmed", item.isConfirmed)
+            console.log("item", item)
+
             return (
             <>
-                <section key={item.id} >
+            {/* {item.isConfirmed=false ?  */}
+                (<section key={item.id} >
                 <Div> Address: {item.address}</Div>
                 <Div> Title: {item.title}</Div>
                 <Div> Description: {item.description}</Div>
@@ -70,7 +74,8 @@ const DisplayServices = () => {
                 >
                 Send an offer
                 </button>
-                </section>
+                </section>)
+                {/* : <div>test</div>} */}
             </>
             )
         })}  

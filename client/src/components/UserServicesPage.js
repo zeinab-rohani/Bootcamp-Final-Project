@@ -8,7 +8,7 @@ const UserServicesPage = () => {
     const navigateMyService = useNavigate()
     const[allServices, setAllServices] = useState([]);
 console.log("user", user)
-console.log("useremail", user.email)
+// console.log("useremail", user.email)
 
         useEffect(() => {
             const fetchServices = async () => {

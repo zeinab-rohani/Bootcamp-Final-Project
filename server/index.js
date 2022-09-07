@@ -25,8 +25,7 @@ const {
     addOffer,
     addClient,
     deleteService,
-    updateService
-} = require("./handlers");
+    updateService} = require("./handlers");
 
 express()
 .use(function (req, res, next) {

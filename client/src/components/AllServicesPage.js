@@ -33,6 +33,7 @@ const DisplayServices = () => {
             fetch("/api/services")
             .then((response) => response.json())
             .then((data) => data.data.map((item) => {
+                if(!item.isConfirmed){
             setMarkerArr((markerArr)=>[
                 ...markerArr,
                 {
@@ -42,12 +43,12 @@ const DisplayServices = () => {
                     lng: item.addressPositionLng,
                     text: "client"
                 }
-            ])
+            ])}
             setServices(data.data)
             setLoading(false);
             }))
     }, []);
-
+console.log("services", services)
         return(
         <>
         <Wrapper>    
@@ -59,10 +60,9 @@ const DisplayServices = () => {
         {services?.map((item) => { 
             console.log("itemisconfirmed", item.isConfirmed)
             console.log("item", item)
-
             return (
             <>
-            {/* {item.isConfirmed=false ?  */}
+            {!item.isConfirmed ? 
                 (<section key={item.id} >
                 <Div> Address: {item.address}</Div>
                 <Div> Title: {item.title}</Div>
@@ -75,7 +75,7 @@ const DisplayServices = () => {
                 Send an offer
                 </button>
                 </section>)
-                {/* : <div>test</div>} */}
+                : (<div></div>)} 
             </>
             )
         })}  
@@ -96,8 +96,6 @@ const ServicesSection = styled.section`
 display: inline-block;
 `;
 
-const ServiceInfo = styled.div`
-`;
 
 const Div = styled.div`
 display: inline-block;

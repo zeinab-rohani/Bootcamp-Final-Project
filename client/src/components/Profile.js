@@ -16,7 +16,7 @@ const Profile = () => {
   }
     return (
       isAuthenticated && (
-        <div>
+        <div style={{backgroundColor: "#C0C0C0"}}>
         <InfoSection>
           <img src={user.picture} alt={user.name} />
           <h2>{user.name}</h2>

@@ -7,6 +7,7 @@
     "@auth0/auth0-react": "^1.10.2",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@keyframes/core": "^2.0.10",
     "@mui/material": "^5.10.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LogoutButton from "./Logout";
 import LoginButton from "./Login";
 import { useAuth0 } from "@auth0/auth0-react";
+import logo from "../assets/logo.png"
 
 const Header = () => {
     const { isAuthenticated } = useAuth0();
@@ -12,9 +13,9 @@ const Header = () => {
         <Wrapper>
             <Link to="/" >
             <Logo>
-            <H1>Home Aide</H1>
+            <Div style={{color:"#004B99"}}><img src={logo} /><h1>Home Aide</h1></Div>
             {user && 
-            <Div>Welcome {user.name}</Div>
+            <Div style={{marginLeft:"200px"}}>Welcome {user.name}</Div>
             }
             <SigninSection>
                 {!isAuthenticated && <LoginButton />}
@@ -33,29 +34,36 @@ export default Header;
 const Wrapper = styled.header`
 display: flex;
 justify-content: space-between;
-background-color: #2e8b57;
-height: 90px;
-padding: 5px;
-`;
+background-color: rgba(0, 0, 0, 0.3);
+
+height: 105px;
+padding: 0;
+z-index: 200;
+    transition: all 5ms;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    & > a {
+        color: black;
+    }
+    `;
 
 const Logo = styled.div`
 margin-left: 80px;
-padding : 10px;
-height: 40px;
+padding : 2px;
+height: 100px;
 width: 100%;
 `;
-
-const H1= styled.h1`
-padding-bottom: 15px;
-font-size: large
-`;
-
 const SigninSection = styled.div`
-margin-left : 800px;
+display: inline-block;
+margin-left : 600px;
 font-size: large;
 `;
 
 const Div = styled.div`
+display: inline-block;
 font-size: large;
 `;
 

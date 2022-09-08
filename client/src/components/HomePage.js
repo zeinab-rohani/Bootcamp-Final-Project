@@ -3,6 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
+import Keyframes from '@keyframes/core';
+import { padding } from "@mui/system";
 
 const HomePage = () => {
     const {setServiceProvider, serviceProviders, serviceProvider,
@@ -43,7 +45,7 @@ console.log("service provider ", serviceProvider)
     return (
         <Wrapper>
             <Container>
-                <Image src={process.env.PUBLIC_URL + "/image.png"} />
+                <Image src={process.env.PUBLIC_URL + "/Homeowners.jpg"} />
                 <Section>
                 {!user &&
                     <>
@@ -53,11 +55,13 @@ console.log("service provider ", serviceProvider)
                 } 
                 {user &&
                 <>
-                <div>You are logged in, click to continue</div>
+                <div style={{fontSize:"x-large", paddingLeft: "40px"}}>You are logged in, click to continue</div>
+                <div style={{paddingLeft: "200px"}}>
                 <Button
                 onClick={getUserType}
             >
             </Button>
+            </div>
                 </> }
                 </Section> 
             </Container>
@@ -80,27 +84,27 @@ position: relative;
 
 const Section = styled.div`
 position: absolute;
-width: 60%;
-height: 110px;
+width: 35%;
+height: 80px;
 padding: 5px;
-background-color: white;
+background-color: rgba(0, 0, 0, 0.4);
 top: 15%;
-left: 20%;
-color: #2F4F4F;
-border: 10px solid #2e8b57;
+left: 33%;
+color: white;
+border: 5px solid #FF0000;
 `;
 
 const Image = styled.img`
 object-fit: cover;
 width: 100%;
 height: 800px;
-opacity : 0.7;
+/* opacity : 0.7; */
 `;
 
 const Div = styled.div`
 height : 50px;
 font-size : x-large;
-padding: 20px;
+align-items: center;
 `;
 
 const Button = styled.button`
@@ -108,7 +112,8 @@ border: 3px solid black;
 height: 30px;
 width: 80px;
 color: white;
-background-color: blue;
+padding-left: 100px;
+background-color: lightblue;
 `;
 
 const Label = styled.label`

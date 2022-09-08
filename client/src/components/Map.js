@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { CurrentRequestContext } from "./CurrentRequestContext";
 import GoogleMapReact from "google-map-react";
 import { useNavigate } from "react-router-dom";
+import markerImage from "../assets/logo-house.png"
 
 const Map = ({markerArr}) => {
 
@@ -10,7 +11,7 @@ const Map = ({markerArr}) => {
 
   const Client = ({ text, id, item }) => <div
   onClick={()=> {navigateService(`/services/${id}`)
-  setService(item)}}>{text}</div>
+  setService(item)}}><img src={markerImage} height={50} width={50} />{text}</div>
   console.log("markerArr", markerArr)  
 
   const defaultProps = {
@@ -18,7 +19,7 @@ const Map = ({markerArr}) => {
         lat: 45.48412,
         lng: -73.631813
       },
-      zoom: 9
+      zoom: 10
     };
   
     return (

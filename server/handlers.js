@@ -191,7 +191,7 @@ const addService = async (req, res) => {
         addressPositionLat: position.lat,
         addressPositionLng: position.lng,
         serviceCategory: req.body.serviceCategory,
-        isConfirmed: "false"
+        isConfirmed: false
         };
 
     const serviceAdded = await db.collection("serviceRequests").insertOne(addService);

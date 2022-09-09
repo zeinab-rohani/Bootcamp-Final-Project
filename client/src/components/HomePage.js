@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 import Keyframes from '@keyframes/core';
 import { padding } from "@mui/system";
+import LoginButton from "./Login";
 
 const HomePage = () => {
     const {setServiceProvider, serviceProviders, serviceProvider,
@@ -45,22 +46,28 @@ console.log("service provider ", serviceProvider)
     return (
         <Wrapper>
             <Container>
-                <Image src={process.env.PUBLIC_URL + "/Homeowners.jpg"} />
+                <Image src={process.env.PUBLIC_URL + "/tools.webp"} />
                 <Section>
                 {!user &&
                     <>
-                    <Div>Need help with something in your house?           
-                    Sign in to find it:</Div>
+                    <Div><p style={{fontSize:"50px", paddingLeft: "100px",
+                fontWeight: "bold"}}>Need help with something in your house?</p>          
+                    {/* <p style={{fontSize:"55px", paddingLeft: "100px",
+                fontWeight: "bold", marginTop: "20px"}}>Sign in to find it: */}
+                {/* <span><LoginButton /></span></p> */}
+                <div style={{paddingLeft: "100px", marginTop: "20px"}}>
+                <LoginButton />
+                </div>
+                </Div>
+                
                     </>            
                 } 
                 {user &&
                 <>
-                <div style={{fontSize:"x-large", paddingLeft: "40px"}}>You are logged in, click to continue</div>
-                <div style={{paddingLeft: "200px"}}>
-                <Button
-                onClick={getUserType}
-            >
-            </Button>
+                <div style={{fontSize:"50px", paddingLeft: "100px",
+                fontWeight: "bold"}}>You are logged in, </div>
+                <div style={{paddingLeft: "100px", marginTop: "20px"}}>
+                <Button onClick={getUserType} >click to continue</Button>
             </div>
                 </> }
                 </Section> 
@@ -84,21 +91,21 @@ position: relative;
 
 const Section = styled.div`
 position: absolute;
-width: 35%;
-height: 80px;
+width: 50%;
+height: 200px;
 padding: 5px;
-background-color: rgba(0, 0, 0, 0.4);
-top: 15%;
-left: 33%;
-color: white;
-border: 5px solid #FF0000;
+/* background-color: #B0E0E6; */
+top: 20%;
+left: 40%;
+color: #004B99;
+/* border: 5px solid #87CEFA; */
 `;
 
 const Image = styled.img`
 object-fit: cover;
 width: 100%;
 height: 800px;
-/* opacity : 0.7; */
+opacity : 0.7;
 `;
 
 const Div = styled.div`
@@ -107,13 +114,12 @@ font-size : x-large;
 align-items: center;
 `;
 
-const Button = styled.button`
-border: 3px solid black;
-height: 30px;
-width: 80px;
-color: white;
-padding-left: 100px;
-background-color: lightblue;
+const Button= styled.button`
+border: 5px solid #004B99;
+font-size: 35px;
+font-weight: bold;
+padding: 10px;
+background-color: #B0E0E6;
 `;
 
 const Label = styled.label`

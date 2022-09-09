@@ -135,6 +135,8 @@ const ServiceForm = () => {
 export default ServiceForm;
 
 const Wrapper = styled.div`
+background-color: #F5DEB3;
+height: 1000px;
 padding : 20px;
 `;
 
@@ -153,6 +155,7 @@ margin-left: 10px;
 margin-right: 50px;
 margin-top: 15px;
 margin-bottom: 15px;
+background-color: #FFF8DC;
 `;
 
 const SubmitButton = styled.button`

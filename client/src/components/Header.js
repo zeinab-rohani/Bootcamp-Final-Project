@@ -12,17 +12,21 @@ const Header = () => {
     return (
         <Wrapper>
             <Link to="/" >
-            <Logo>
-            <Div style={{color:"#004B99"}}><img src={logo} /><h1>Home Aide</h1></Div>
+            
+            <Logo>  
+            <div style={{display:"inline-block",}}><img src={logo} /></div>
+            <h1 style={{marginLeft:"5px", display:"inline-block",
+                color:"#004B99", fontFamily: "Brush Script MT, cursive",
+                fontSize: "xx-large"}}>Home Aide</h1>
+            </Logo>
             {user && 
-            <Div style={{marginLeft:"200px"}}>Welcome {user.name}</Div>
-            }
+            <WelcomeDiv>Welcome {user.name}</WelcomeDiv>
+            }     
             <SigninSection>
-                {!isAuthenticated && <LoginButton />}
+                {/* {!isAuthenticated && <LoginButton />} */}
                 {isAuthenticated && <LogoutButton />}
                 {/* {isAuthenticated && <Link to="/profile"></Link>} */}
             </SigninSection>
-            </Logo>
             </Link>
             
         </Wrapper>
@@ -34,15 +38,18 @@ export default Header;
 const Wrapper = styled.header`
 display: flex;
 justify-content: space-between;
-background-color: rgba(0, 0, 0, 0.3);
-
-height: 105px;
-padding: 0;
+align-items: center;
+background-color: #B0E0E6;
+height: 120px;
+width: 100%;
+padding-left: 100px;
+padding-top: 10px;
 z-index: 200;
     transition: all 5ms;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.2);
+        /* background-color: rgba(0, 0, 0, 0.3); */
+        background-color: #87CEFA;
     }
 
     & > a {
@@ -51,19 +58,22 @@ z-index: 200;
     `;
 
 const Logo = styled.div`
-margin-left: 80px;
-padding : 2px;
+display: inline-block;
+padding : 10px;
 height: 100px;
-width: 100%;
 `;
 const SigninSection = styled.div`
 display: inline-block;
-margin-left : 600px;
 font-size: large;
+color: #004B99;
+margin-left: 300px;
 `;
 
-const Div = styled.div`
+const WelcomeDiv = styled.div`
 display: inline-block;
-font-size: large;
+font-size: 25px;
+margin-left: 300px;
+font-style: italic;
+padding: 10px;
+color: #004B99
 `;
-

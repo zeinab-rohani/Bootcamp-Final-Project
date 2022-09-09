@@ -16,15 +16,17 @@ const Profile = () => {
   }
     return (
       isAuthenticated && (
-        <div style={{backgroundColor: "#C0C0C0"}}>
-        <InfoSection>
-          <img src={user.picture} alt={user.name} />
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
-        </InfoSection>
+        <Wrapper>
+        {/* <InfoSection> */}
+          {/* <img src={user.picture} alt={user.name} /> */}
+          {/* <h2>{user.name}</h2>
+          <p>{user.email}</p> */}
+        {/* </InfoSection> */}
+          <p style={{fontSize:"50px", color: "#004B99", marginLeft: "50px", 
+                fontWeight: "bold", paddingTop: "50px"}}> Please click to continue: </p>
           <Button onClick={newServiceHandler} >Add a new service request</Button>
           <Button onClick={manageServicesHandler} >Manage my previous service requests</Button>
-        </div> 
+        </Wrapper> 
       )
     );
 };
@@ -32,15 +34,21 @@ const Profile = () => {
 export default Profile;
 
 const InfoSection = styled.div`
-margin: 50px;
+padding: 50px;
 font-size: large;
 `;
 
-const Button = styled.button`
-font-size: x-large;
+const Button= styled.button`
+border: 5px solid #004B99;
 margin: 50px;
-height: 80px;
-width: 400px;
-border: 3px solid gray;
-background-color: lightblue;
+padding: 10px;
+font-size: 35px;
+font-weight: bold;
+padding: 10px;
+background-color: #B0E0E6;
+`;
+
+const Wrapper = styled.div`
+background-color: #FFEBCD;
+height: 1000px;
 `;

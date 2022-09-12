@@ -44,18 +44,7 @@ height: 120px;
 width: 100%;
 padding-left: 100px;
 padding-top: 10px;
-z-index: 200;
-    transition: all 5ms;
-
-    &:hover {
-        /* background-color: rgba(0, 0, 0, 0.3); */
-        background-color: #87CEFA;
-    }
-
-    & > a {
-        color: black;
-    }
-    `;
+`;
 
 const Logo = styled.div`
 display: inline-block;

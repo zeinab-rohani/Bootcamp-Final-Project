@@ -63,26 +63,28 @@ const ServiceDetail = () => {
 
 
     return (
-        <>
+        <Wrapper>
+        <P> To confirm the offer, click on the confirm button:</P>
+
         {!serviceProvider &&
         <ClientSection>
-            <Div> Category: {service.category}</Div>
             <Div> Title: {service.title}</Div>
             <Div> Description: {service.description}</Div>
             {offers?.map((item)=>{
                 if(item.serviceId===service._id){
                 return(
-                    <section>
+                    <OfferSection>
+                    <p style={{fontSize:"x-large", marginBottom: "10px"}}> Offers for your service:</p>
                     <Div>Offer: {item.offer}</Div>
                     <Div>Companie: {item.serviceProvider.name}</Div>
-                    <button type="confirm" value="confirm"
+                    <Button type="confirm" value="confirm"
             onClick={handleConfirm}
             >
-            confirm the offer
-            </button>
+            confirm
+            </Button>
             {isConfirmed &&
             <div> The offer is confirmed</div>}
-                    </section>
+                    </OfferSection>
                 )}
             })}
         </ClientSection> }   
@@ -96,30 +98,48 @@ const ServiceDetail = () => {
                 onChange={(event) => 
                     setMyOffer(event.target.value)} />
             </Label>
-            <button type="confirm" value="confirm"
+            <Button type="confirm" value="confirm"
                         onClick={offerHandle}
             >
-            Submit the offer
-            </button>
+            Confirm
+            </Button>
         </ServiceProviderSection>}
     
 
-        </>
+        </Wrapper>
 
     )
 }
 
 export default ServiceDetail;
 
+const Wrapper = styled.div`
+background-color: #FFEBCD;
+height: 1000px;
+padding : 20px;
+`;
+
 const Div = styled.div`
+font-size: large;
 display: inline-block;
 padding: 5px;
 height: 50px;
-width: 250px;
-border: 3px solid gray;
+width: 500px;
+border: 3px solid #004B99;
 `;
 
-const ClientSection = styled.section``;
+const P = styled.p`
+padding: 50px;
+font-size : 30px;
+`;
+
+const ClientSection = styled.section`
+padding-left: 50px;
+`;
+
+const OfferSection = styled.section`
+padding-top: 50px;
+`;
 
 const ServiceProviderSection = styled.section``;
 
@@ -138,4 +158,23 @@ margin-left: 10px;
 margin-right: 50px;
 margin-top: 15px;
 margin-bottom: 15px;
+`;
+
+const Button = styled.button`
+font-family: Arial, sans-serif;
+padding: 10px;
+margin-left: 10px;
+background: #004B99 0% 0% no-repeat padding-box;
+color: #fff;
+border-radius: 5px;
+font-size: 1.3rem;
+font-weight: 400;
+border: 0px;
+box-shadow: 0px 3px 10px darkblue;
+letter-spacing: 0.1rem;
+
+&:hover {
+background-color: lightblue;
+color: black;
+}
 `;

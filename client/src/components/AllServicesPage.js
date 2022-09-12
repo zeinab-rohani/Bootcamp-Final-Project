@@ -29,8 +29,7 @@ const DisplayServices = () => {
             setLoading(false);
             };
                 getServiceProviders();
-    
-            fetch("/api/services")
+                fetch("/api/services")
             .then((response) => response.json())
             .then((data) => data.data.map((item) => {
                 if(!item.isConfirmed){
@@ -62,25 +61,26 @@ console.log("services", services)
             console.log("item", item)
             return (
             <>
-            {!item.isConfirmed ? 
+            {!item.isConfirmed && 
                 (<section key={item.id} >
                 <Div> Address: {item.address}</Div>
                 <Div> Title: {item.title}</Div>
-                <Div> Description: {item.description}</Div>
-                <button type="confirm" value="confirm"
+                {/* <Div> Description: {item.description}</Div> */}
+                <Button type="confirm" value="confirm"
                     onClick={()=> {navigateService(`/services/${item._id}`)
                     setService(item)}
                 }
                 >
                 Send an offer
-                </button>
-                </section>)
-                : (<div></div>)} 
+                </Button>
+                </section>)}
             </>
             )
         })}  
         </ServicesSection>
+        {/* <MapSection> */}
         <Map markerArr={markerArr} />
+        {/* </MapSection> */}
         </section>)}
         </Wrapper>
         </>
@@ -89,18 +89,42 @@ console.log("services", services)
 
 export default DisplayServices;
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
+background-color: #FFEBCD;
+height: 1000px;
 `;
 
 const ServicesSection = styled.section`
+padding-top: 50px;
+padding-left: 20px;
 display: inline-block;
+width: 800px;
 `;
-
 
 const Div = styled.div`
 display: inline-block;
-padding: 5px;
-height: 30px;
-width: 100px;
-border: 3px solid gray;
+padding: 10px;
+height: 50px;
+width: 300px;
+border: 2px solid gray;
+margin-bottom: 20px;
+`;
+
+const Button = styled.button`
+font-family: Arial, sans-serif;
+padding: 10px;
+margin-left: 10px;
+background: #004B99 0% 0% no-repeat padding-box;
+color: #fff;
+border-radius: 5px;
+font-size: 1.3rem;
+font-weight: 400;
+border: 0px;
+box-shadow: 0px 3px 10px darkblue;
+letter-spacing: 0.1rem;
+
+&:hover {
+background-color: lightblue;
+color: black;
+}
 `;

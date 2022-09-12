@@ -22,7 +22,7 @@ const Profile = () => {
           {/* <h2>{user.name}</h2>
           <p>{user.email}</p> */}
         {/* </InfoSection> */}
-          <p style={{fontSize:"50px", color: "#004B99", marginLeft: "50px", 
+          <p style={{fontSize:"40px", color: "#004B99", marginLeft: "50px", 
                 fontWeight: "bold", paddingTop: "50px"}}> Please click to continue: </p>
           <Button onClick={newServiceHandler} >Add a new service request</Button>
           <Button onClick={manageServicesHandler} >Manage my previous service requests</Button>
@@ -38,15 +38,16 @@ padding: 50px;
 font-size: large;
 `;
 
-const Button= styled.button`
-border: 5px solid #004B99;
-margin: 50px;
-padding: 10px;
-font-size: 35px;
+const Button = styled.button`
+font-size: x-large;
 font-weight: bold;
-padding: 10px;
+margin: 50px;
+height: 80px;
+width: 400px;
+border: 5px solid #004B99;
 background-color: #B0E0E6;
 `;
+
 
 const Wrapper = styled.div`
 background-color: #FFEBCD;

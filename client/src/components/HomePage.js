@@ -3,8 +3,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
-import Keyframes from '@keyframes/core';
-import { padding } from "@mui/system";
 import LoginButton from "./Login";
 
 const HomePage = () => {
@@ -50,21 +48,20 @@ console.log("service provider ", serviceProvider)
                 <Section>
                 {!user &&
                     <>
+                    <div style={{paddingLeft: "600px", marginTop: "20px",
+                marginBottom: "80px"}}>
+                    <LoginButton />
+                    </div>
                     <Div><p style={{fontSize:"50px", paddingLeft: "100px",
-                fontWeight: "bold"}}>Need help with something in your house?</p>          
-                    {/* <p style={{fontSize:"55px", paddingLeft: "100px",
-                fontWeight: "bold", marginTop: "20px"}}>Sign in to find it: */}
-                {/* <span><LoginButton /></span></p> */}
-                <div style={{paddingLeft: "100px", marginTop: "20px"}}>
-                <LoginButton />
-                </div>
+                fontWeight: "bold"}}>Need help with something in your house? Sign in to find it!</p>          
+                    
                 </Div>
                 
                     </>            
                 } 
                 {user &&
                 <>
-                <div style={{fontSize:"50px", paddingLeft: "100px",
+                <div style={{fontSize:"50px", paddingLeft: "100px", paddingTop: "80px",
                 fontWeight: "bold"}}>You are logged in, </div>
                 <div style={{paddingLeft: "100px", marginTop: "20px"}}>
                 <Button onClick={getUserType} >click to continue</Button>
@@ -95,9 +92,10 @@ width: 50%;
 height: 200px;
 padding: 5px;
 /* background-color: #B0E0E6; */
-top: 20%;
-left: 40%;
-color: #004B99;
+top: 10%;
+left: 35%;
+color: black;
+/* color: #004B99; */
 /* border: 5px solid #87CEFA; */
 `;
 

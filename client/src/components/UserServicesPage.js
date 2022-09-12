@@ -21,39 +21,54 @@ console.log("user", user)
 
     return (
         <>
-        <div>
+        <Wrapper>
+        <P> To see the details of the service, click on the Id:</P>
             {allServices.map((item) => {
                 if(item.userEmail===user.email){
                     setService(item)
                     return(
+                    <>
                     <Section>
                     <Div onClick={() => navigateMyService(`/services/${item._id}`)}>
                         Id: {item._id}
                     </Div>
-                    <Div> Category: {item.category}</Div>
+                    {/* <Div> Category: {item.category}</Div> */}
                     <Div> Title: {item.title}</Div>
                     <Div> Description: {item.description}</Div>
-                    <Div> Status: {item.status}</Div>
+                    {/* <Div> Status: {item.status}</Div> */}
                     </Section>
+                    </> 
                 )}
             })}
-        </div>
+        </Wrapper>
         </>
     )
 }
 
 export default UserServicesPage;
 
+const Wrapper = styled.div`
+background-color: #FFEBCD;
+height: 1000px;
+padding : 20px;
+`;
+
+const P = styled.p`
+padding: 50px;
+font-size : 30px;
+`;
+
 const Section = styled.div`
 width: 100%;
 height: 120px;
-padding: 10px;
+padding: 50px;
 `;
 
 const Div = styled.div`
+font-size: large;
 display: inline-block;
-padding: 5px;
+padding: 10px;
 height: 50px;
-width: 250px;
-border: 3px solid gray;
+width: 350px;
+border: 3px solid #004B99;
 `;

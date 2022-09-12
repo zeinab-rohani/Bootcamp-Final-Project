@@ -181,8 +181,6 @@ const addService = async (req, res) => {
 
     const addService = {
         serviceId: uuidv4(),
-        userFirstname: req.body.userFirstname,
-        userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
         userPhone: req.body.phone,
         userAddress: req.body.userAddress,
@@ -244,8 +242,6 @@ const addClient = async (req, res) => {
 
     const addClient = {
         userId: uuidv4(),
-        userFirstname: req.body.userFirstname,
-        userLastname: req.body.userLastname,
         userEmail: req.body.userEmail,
         userPhone: req.body.phone,
         userAddress: req.body.userAddress

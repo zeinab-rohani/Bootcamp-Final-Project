@@ -23,8 +23,8 @@ const Map = ({markerArr}) => {
     };
   
     return (
-      <div style={{ height: '70vh', width: '50%',
-      display: "inline-block", marginLeft: "400px" }}>
+      <div style={{ height: '80vh', width: '45%',
+      display: "flex", float:"right" ,  marginLeft: "10px" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyA11X2WyanHuFT08dv3TE_C4HXsfQl7BR4" }}
           defaultCenter={defaultProps.center}

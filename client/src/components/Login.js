@@ -9,7 +9,7 @@ const LoginButton = () => {
 
     return(
         <> 
-            <Button onClick={() => loginWithRedirect()}>Sign in to find it</Button>
+            <Button onClick={() => loginWithRedirect()}>Sign in</Button>
         </>
     )
 }

@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "./Loading";
+import { lightGreen } from "@mui/material/colors";
 
 const Offers = () => {
     const [loading, setLoading] = useState(false);
@@ -23,21 +24,20 @@ const Offers = () => {
         }, []);
 
 return(
-    <>
+    <Wrapper>
     {loading ? (
         <Loading />
         ) : (<section>
     {offers?.map((item)=>{
-     console.log("item sp", item.serviceProvider)  
-     console.log("serviceProvider", serviceProvider)
-     console.log("user", user)  
+        console.log("item sp", item.serviceProvider)  
+        console.log("serviceProvider", serviceProvider)
+        console.log("user", user)  
 
-     setServiceProvider(user.name)
- 
+        setServiceProvider(user.name)
                 return(
                     <>
                     {item.serviceProvider==serviceProvider ? (
-                        <section>
+                    <Section>
                     {/* <section onClick={() => navigateMyService(`/services/${item._id}`)}> */}
                     <Div> service Title: {item.title}</Div>
                     <Div> Description: {item.description}</Div>
@@ -45,16 +45,16 @@ return(
                     <Div> address: {item.address}</Div>
                     <Div> offer: {item.offer}</Div>
                     {item.isConfirmed == true &&
-                    <Div> Offer is confirmed </Div>}
-                    </section>)
-                    : <div>test</div>}
+                    <ConfirmDiv> Offer is confirmed </ConfirmDiv>}
+                    </Section>)
+                    : <>test</>}
                     {/* </section> */}
                     </>)
                 })}
                 
             </section>
         )}    
-    </>
+    </Wrapper>
     )
 }
 
@@ -62,8 +62,22 @@ export default Offers;
 
 const Div = styled.div`
 display: inline-block;
-padding: 5px;
-height: 50px;
-width: 250px;
+padding: 10px;
+height: 80px;
+width: 500px;
 border: 3px solid gray;
+`;
+
+const ConfirmDiv = styled(Div)`
+background-color: green;
+color: white;
+`
+
+const Section = styled.section`
+padding: 30px;
+`;
+
+const Wrapper = styled.div`
+background-color: #FFEBCD;
+height: 1000px;
 `;

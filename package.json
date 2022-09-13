@@ -6,6 +6,7 @@
   "author": "Zeinab <zrohani2001@yahoo.com>",
   "license": "MIT",
   "dependencies": {
-    "google-map-react": "^2.2.0"
+    "google-map-react": "^2.2.0",
+    "react-icons": "^4.4.0"
   }
 }

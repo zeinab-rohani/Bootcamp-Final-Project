@@ -48,15 +48,22 @@ console.log("service provider ", serviceProvider)
                 <Section>
                 {!user &&
                     <>
-                    <div style={{paddingLeft: "600px", marginTop: "20px",
-                marginBottom: "80px"}}>
-                    <LoginButton />
-                    </div>
-                    <Div><p style={{fontSize:"50px", paddingLeft: "100px",
-                fontWeight: "bold"}}>Need help with something in your house? Sign in to find it!</p>          
-                    
-                </Div>
-                
+                    <Div><p style={{marginBottom: "20px"}}>
+                        Need help with something in your house? </p>
+                        <p style={{fontStyle: "italic"}}>Sign in to find it!</p>          
+                    </Div>
+                    <ServicesDiv>
+                        <p style={{marginBottom: "20px"}}>Our services:</p>
+                        <p>Plumbing<span style={{marginLeft: "10px", fontSize: "large"}}>
+                        Clogged drain, leaky pipe, kitchen or bathroom</span></p>
+                        <p>Paintig<span style={{marginLeft: "10px", fontSize: "large"}}>
+                        Transform your home or office with professional painting</span></p>
+                        <p>Appliances<span style={{marginLeft: "10px", fontSize: "large"}}>
+                        Installation and Repair washer-dryer, stove</span></p>
+                        <p>Heating/Cooling<span style={{marginLeft: "10px", fontSize: "large"}}>
+                        Installation and Repair heating system, AC</span></p>
+
+                    </ServicesDiv>
                     </>            
                 } 
                 {user &&
@@ -89,10 +96,10 @@ position: relative;
 const Section = styled.div`
 position: absolute;
 width: 50%;
-height: 200px;
+height: 700px;
 padding: 5px;
 /* background-color: #B0E0E6; */
-top: 10%;
+top: 11%;
 left: 35%;
 color: black;
 /* color: #004B99; */
@@ -107,9 +114,16 @@ opacity : 0.7;
 `;
 
 const Div = styled.div`
-height : 50px;
-font-size : x-large;
-align-items: center;
+padding-left: 100px;
+font-size: 50px;
+font-weight: bold;
+`;
+
+const ServicesDiv = styled.div`
+margin-top: 100px;
+padding-left: 100px;
+font-size : xx-large;
+font-weight: bold;
 `;
 
 const Button= styled.button`

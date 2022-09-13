@@ -89,10 +89,9 @@ console.log("category", serviceCategory)
             onChange={(e) => setServiceCategory(e.target.value)}>
                 <option value=""></option>
                 <option value="Plumbing">Plumbing</option>
-                <option value="Heating/Cooling">Heating</option>
-                <option value="Electrical/Lighting">Electrical/Lighting</option>
+                <option value="Heating/Cooling">Heating/Cooling</option>
+                <option value="Appliances">Appliances</option>
                 <option value="Painting">Painting</option>
-                <option value="Doors/Windows">Doors/Windows</option>
 
             </Select>   
             <LabelDiv >Tiltle:</LabelDiv>

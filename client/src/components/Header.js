@@ -21,12 +21,15 @@ const Header = () => {
             </Logo>
             {user && 
             <WelcomeDiv>Welcome {user.name}</WelcomeDiv>
-            }     
+            } 
             <SigninSection>
-                {/* {!isAuthenticated && <LoginButton />} */}
+                {!isAuthenticated && <LoginButton />}
                 {isAuthenticated && <LogoutButton />}
                 {/* {isAuthenticated && <Link to="/profile"></Link>} */}
             </SigninSection>
+            {/* <SignOutSection>
+              
+            </SignOutSection> */}
             </Link>
             
         </Wrapper>
@@ -53,10 +56,18 @@ height: 100px;
 `;
 const SigninSection = styled.div`
 display: inline-block;
-font-size: large;
-color: #004B99;
-margin-left: 300px;
+font-size: medium;
+color: black;
+margin-left: 270px;
 `;
+
+// const SignOutSection = styled.div`
+// /* display: inline-block; */
+// font-size: medium;
+// color: #004B99;
+// margin-left: 200px;
+// background-color: red;
+// `;
 
 const WelcomeDiv = styled.div`
 display: inline-block;

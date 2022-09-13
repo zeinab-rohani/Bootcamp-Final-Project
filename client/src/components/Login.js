@@ -9,7 +9,9 @@ const LoginButton = () => {
 
     return(
         <> 
-            <Button onClick={() => loginWithRedirect()}>Sign in</Button>
+            <Button onClick={() => loginWithRedirect()} style={{
+                marginLeft: "500px"
+            }}>Sign in</Button>
         </>
     )
 }

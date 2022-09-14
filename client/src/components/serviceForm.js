@@ -4,7 +4,6 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceForm = () => {
     const{user, client, setClient, clients, setClients} = useContext(CurrentRequestContext);
-    
     const [phone, setPhone] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -13,9 +12,6 @@ const ServiceForm = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [requestFinalized, setRequestFinalized] = useState(false);
     const [message, setMessage] = useState("");
-
-console.log("user", user)
-console.log("category", serviceCategory)
 
     const submitHandle = (event) => {
         event.preventDefault();
@@ -50,81 +46,78 @@ console.log("category", serviceCategory)
         return res.json();
         });
         }
-        console.log("client", client)
-        const getClients = async () => {
-            const res = await fetch("/api/clients");
-            const { data } = await res.json();
-            setClients(data);
-            };
-            getClients();
 
-            if (!clients.includes(user))
-            {
-                fetch("/api/add-client", {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        userName: user.name,
-                        userEmail: user.email,
-                        userPhone: phone,
-                        userAddress: address,
-                    }),
-                    }).then((res) => {
-                    return res.json();
-                    });
-            }
+    // add a new client to database collection.
+    const getClients = async () => {
+        const res = await fetch("/api/clients");
+        const { data } = await res.json();
+        setClients(data);
+        };
+        getClients();
+        if (!clients.includes(user)){
+            fetch("/api/add-client", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userName: user.name,
+                    userEmail: user.email,
+                    userPhone: phone,
+                    userAddress: address,
+                }),
+            }).then((res) => {
+                return res.json();
+            });
+        }
     }
+
     return(
         <>
         <Wrapper>
-        {!requestFinalized ? (
+            {!requestFinalized ? (
             <>
-            <P>Please select the service you need and provide your informations</P>
-            <Form>
-            <LabelDiv>Service:</LabelDiv>
-            <Select name="services" value={serviceCategory}
-            onChange={(e) => setServiceCategory(e.target.value)}>
-                <option value=""></option>
-                <option value="Plumbing">Plumbing</option>
-                <option value="Painting">Painting</option>
-                <option value="Appliances">Appliances</option>
-                <option value="Flooring/Tiles">Flooring/Tiles</option>
-
-            </Select>   
-            <LabelDiv >Tiltle:</LabelDiv>
-            <UserInput1 type="text" placeholder="  title" value={title}
-                onChange={(e) => setTitle(e.target.value)} />
-            <section>
-            <LabelDiv> Phone number: </LabelDiv>
-            <UserInput1 type="text" placeholder="  phone" value={phone}
-                onChange={(e) => setPhone(e.target.value)} />
-            </section>
-            <section>
-            <LabelDiv> Address:</LabelDiv>
-            <UserInput2  type="text"  placeholder="  address" value={address}
-                onChange={(e) => setAddress(e.target.value)} />
-            </section>
-            <section>
-            <LabelDiv> Description:</LabelDiv>
-            <UserInput2 type="text" placeholder="  Please provide a detailed description of your problem" value={description}
-                onChange={(e) => setDescription(e.target.value)} />
-            
-            </section>
-            {message !== "" && <Message>{message}</Message>}
-            <section style={{paddingLeft: "20px", paddingTop: "20px"}}>
-            <SubmitButton type="submit" value="Submit"
-                onClick={submitHandle}
-                isDisabled={isDisabled} >
-            Submit 
-            </SubmitButton>
-            </section>
-            </Form>
-            </>)
-            :(
-                <TextDiv>Thank you for your request, it is being processed!</TextDiv>)}
+                <P>Please select the service you need and provide your informations</P>
+                <Form>
+                    <LabelDiv>Service:</LabelDiv>
+                    <Select name="services" value={serviceCategory}
+                    onChange={(e) => setServiceCategory(e.target.value)}>
+                        <option value=""></option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="Painting">Painting</option>
+                        <option value="Appliances">Appliances</option>
+                        <option value="Flooring/Tiles">Flooring/Tiles</option>
+                    </Select>   
+                    <LabelDiv >Tiltle:</LabelDiv>
+                    <UserInput1 type="text" placeholder="  title" value={title}
+                        onChange={(e) => setTitle(e.target.value)} />
+                    <section>
+                        <LabelDiv> Phone number: </LabelDiv>
+                        <UserInput1 type="text" placeholder="  phone" value={phone}
+                            onChange={(e) => setPhone(e.target.value)} />
+                    </section>
+                    <section>
+                        <LabelDiv> Address:</LabelDiv>
+                        <UserInput2  type="text"  placeholder="  address" value={address}
+                            onChange={(e) => setAddress(e.target.value)} />
+                    </section>
+                    <section>
+                        <LabelDiv> Description:</LabelDiv>
+                        <UserInput2 type="text" placeholder="  Please provide a detailed description of your problem" value={description}
+                            onChange={(e) => setDescription(e.target.value)} />
+                    </section>
+                    {message !== "" && <Message>{message}</Message>}
+                    <section style={{paddingLeft: "20px", paddingTop: "20px"}}>
+                        <SubmitButton type="submit" value="Submit"
+                            onClick={submitHandle}
+                            isDisabled={isDisabled} >
+                        Submit 
+                        </SubmitButton>
+                    </section>
+                </Form>
+            </>):(
+            <TextDiv>Thank you for your request, it is being processed!</TextDiv>)}
         </Wrapper> 
         </>
     )

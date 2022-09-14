@@ -14,7 +14,6 @@ root.render(
     redirectUri={window.location.origin}
     audience= 'finalProjectBackend'
     scope="read:current_user update:current_user_metadata"
-
   >
     <App />
   </Auth0Provider>,

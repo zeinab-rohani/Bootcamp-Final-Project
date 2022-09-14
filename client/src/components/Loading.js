@@ -20,5 +20,3 @@ const LoadingStyle = styled.div`
   padding: 0px;
   margin: 5rem;
 `;
-
-const LoadingContainer = <style></style>;

@@ -1,46 +1,36 @@
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import { CurrentRequestContext } from "./CurrentRequestContext";
-import { lightGreen } from "@mui/material/colors";
-
 
 const ServiceDetail = () => {
-    const {user, serviceProvider, service} = useContext(CurrentRequestContext)
+    const {serviceProvider, service} = useContext(CurrentRequestContext)
     const [myoffer, setMyOffer] = useState(null);
     const [offers, setOffers] = useState([]);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
-
-    console.log("service provider ", serviceProvider)
-    console.log("service ", service)
 
     useEffect(() => {
         const getOffers = async () => {
             const res = await fetch("/api/offers");
             const { data } = await res.json();
             setOffers(data);
-            };
-            getOffers();
-                
+        };
+        getOffers();
         }, []);
-        console.log("offers", offers)
-        let serviceOffers = [];
-        const getServiceOffers = () =>{
-            offers.map((item) => {
-                if (item.serviceId === service._id){
-                    serviceOffers.push(item) }})   
-            //         offers.map((item) => {
-            //     if (item.serviceId === service._id){
-            //         (serviceOffers = [...serviceOffers,{item}])
-            //     }
-            // })
-        } 
-        getServiceOffers();   
+
+    // get offers of the service we are on the page of.
+    let serviceOffers = [];
+    const getServiceOffers = () =>{
+        offers.map((item) => {
+            if (item.serviceId === service._id){
+            serviceOffers.push(item) }   
+        })
+    } 
+    getServiceOffers();   
     
     const handleConfirm = () =>{
         setIsDisabled(false);
         setIsConfirmed(true);
-
         fetch("/api/update-service", {
             method: "PATCH",
             headers: {
@@ -50,10 +40,10 @@ const ServiceDetail = () => {
             body: JSON.stringify({
                 serviceId: service._id,
             }),
-            }).then((res) => {
+        }).then((res) => {
             return res.json();
-            });
-            setIsDisabled(true);
+        });
+        setIsDisabled(true);
     };
 
     const handleDelete = () =>{
@@ -66,12 +56,11 @@ const ServiceDetail = () => {
             body: JSON.stringify({
                 serviceId: service._id,
             }),
-            }).then((res) => {
-            // return res.json();
-            console.log("Request is deleted")
-            });
+        }).then((res) => {
+        console.log("service request is deleted")
+        });
     }
-    console.log("service id",service._id)
+
     const offerHandle =() => {
         fetch("/api/add-offer", {
             method: "POST",
@@ -81,7 +70,7 @@ const ServiceDetail = () => {
             },
             body: JSON.stringify({
                 serviceId: service._id,
-                clientEmail: service.email,
+                clientEmail: service.userEmail,
                 serviceProvider: serviceProvider.name,
                 address: service.address,
                 title: service.title,
@@ -90,74 +79,52 @@ const ServiceDetail = () => {
                 serviceProvider: serviceProvider,
                 offer: myoffer
             }),
-            }).then((res) => {
-            return res.json();
-            });
-            }
-
+        }).then((res) => {
+        return res.json();
+        });
+    }
             
     return (
         <Wrapper>
-        <P> To confirm the offer, click on the confirm button:</P>
-
-        {!serviceProvider &&
-        <ClientSection>
-            <Div> Title: {service.title}</Div>
-            <Div> Description: {service.description}</Div>
-            <div>
-            <DeleteButton type="delete" value="delete"
-                onClick={handleDelete}
-            >
-            Delete
-            </DeleteButton>
-            </div>
-            {serviceOffers?.map((item)=>{
-                                console.log("serviceOffers", serviceOffers)
-
-                console.log("item", item)
-
-                console.log("item.serviceProvider", item.serviceProvider)
-                console.log("item.serviceId", item.serviceId)
-                // console.log("service._id", service._id)
-                // if(item.serviceId===service._id)
+            {!serviceProvider &&
+            <ClientSection>
+                <Div> Title: {service.title}</Div>
+                <Div> Description: {service.description}</Div>
+                <div>
+                    <DeleteButton type="delete" value="delete"
+                        onClick={handleDelete}>
+                    Delete </DeleteButton>
+                </div>
+                {serviceOffers?.map((item)=>{
                 return(
-                    <OfferSection>
-                    <p style={{fontSize:"x-large", marginBottom: "10px"}}> Offers for your service:</p>
+                <OfferSection>
+                    <p style={{fontSize:"x-large", marginBottom: "10px"}}>
+                        Offers for your service:</p>
                     <Div>Offer: {item.offer}</Div>
                     <Div>Companie: {item.serviceProvider}</Div>
                     {isConfirmed && 
-                    <Div style={{backgroundColor: "lightGreen" }}>The offer is confirmed</Div>}
-
+                    <Div style={{backgroundColor: "lightGreen" }}>
+                        The offer is confirmed</Div>}
                     <Button type="confirm" value="confirm"
-            onClick={handleConfirm}
-            isDisabled={isDisabled} 
-            >
-            confirm
-            </Button>
-                </OfferSection>
-                )
-            })}
-        </ClientSection> }   
-        {serviceProvider &&
-        <ServiceProviderSection>
-            <Div> Category: {service.category}</Div>
-            <Div> Title: {service.title}</Div>
-            <Div> Description: {service.description}</Div>
-            <Label> Your Offer for the service:
-            <UserInput type="text" placeholder="  offer" 
-                onChange={(event) => 
-                    setMyOffer(event.target.value)} />
-            </Label>
-            <Button type="confirm" value="confirm"
-                        onClick={offerHandle}
-            >
-            Confirm
-            </Button>
-        </ServiceProviderSection>}
-    
-
+                        onClick={handleConfirm} isDisabled={isDisabled}>
+                    confirm</Button>
+                </OfferSection>)
+                })}
+            </ClientSection> }   
+            {serviceProvider &&
+            <ServiceProviderSection>
+                <Div> Category: {service.serviceCategory}</Div>
+                <Div> Title: {service.title}</Div>
+                <Div> Description: {service.description}</Div>
+                <Label> Your Offer for the service:
+                <UserInput type="text" placeholder="  offer" 
+                    onChange={(event) => 
+                        setMyOffer(event.target.value)} />
+                </Label>
+                <Button type="confirm" value="confirm" onClick={offerHandle}>
+                Confirm</Button>
+            </ServiceProviderSection>}
         </Wrapper>
-
     )
 }
 
@@ -176,11 +143,6 @@ padding: 5px;
 height: 50px;
 width: 500px;
 border: 3px solid #004B99;
-`;
-
-const P = styled.p`
-padding: 50px;
-font-size : 30px;
 `;
 
 const ClientSection = styled.section`

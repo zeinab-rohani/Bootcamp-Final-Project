@@ -8,14 +8,13 @@ import logo from "../assets/logo.png"
 const Header = () => {
     const { isAuthenticated } = useAuth0();
     const { user } = useAuth0();
-    // {user ? console.log("user", user.name) : console.log("no user found")}
+
     return (
         <Wrapper>
             <Link to="/" >
-            
             <Logo>  
-            <div style={{display:"inline-block",}}><img src={logo} /></div>
-            <h1 style={{marginLeft:"5px", display:"inline-block",
+                <div style={{display:"inline-block",}}><img src={logo} /></div>
+                <h1 style={{marginLeft:"5px", display:"inline-block",
                 color:"#004B99", fontFamily: "Brush Script MT, cursive",
                 fontSize: "xx-large"}}>Home Aide</h1>
             </Logo>
@@ -25,12 +24,8 @@ const Header = () => {
             <SigninSection>
                 {!isAuthenticated && <LoginButton />}
                 {isAuthenticated && <LogoutButton />}
-                {/* {isAuthenticated && <Link to="/profile"></Link>} */}
             </SigninSection>
-            {/* <SignOutSection>
-            </SignOutSection> */}
             </Link>
-            
         </Wrapper>
     );
 };
@@ -53,6 +48,7 @@ display: inline-block;
 padding : 10px;
 height: 100px;
 `;
+
 const SigninSection = styled.div`
 display: inline-block;
 font-size: medium;
@@ -63,18 +59,7 @@ margin-left: 100px;
 @media screen and (min-width: 1300px) {
 margin-left: 400px; 
 }
-
-
-
 `;
-
-// const SignOutSection = styled.div`
-// /* display: inline-block; */
-// font-size: medium;
-// color: #004B99;
-// margin-left: 200px;
-// background-color: red;
-// `;
 
 const WelcomeDiv = styled.div`
 display: inline-block;

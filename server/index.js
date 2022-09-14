@@ -1,4 +1,3 @@
-
 "use strict";
 
 const express = require("express");
@@ -14,13 +13,9 @@ const checkJwt = auth({
 
 const {
     getCompanies,
-    getCompany,
     getServices,
-    getService,
     getOffers,
     getClients,
-    getServicesByUser,
-    getServicesByCompany,
     addService,
     addOffer,
     addClient,
@@ -46,21 +41,14 @@ express()
 .use("/", express.static(__dirname + "/"))
 
 // REST endpoints:
-
 .get ("/fetch-message", checkJwt, function(req, res){
     res.status(200).json({message: "User is authinticated"})
 }
 )
-
-
 .get("/api/companies", getCompanies)
-.get("/api/companies/:companyId", getCompany)
 .get("/api/services", getServices)
 .get("/api/offers", getOffers)
 .get("/api/clients", getClients)
-.get("/api/services/:serviceId", getService)
-.get("/api/services-user/:userId", getServicesByUser)
-.get("/api/services-company/:companyId", getServicesByCompany)
 .post("/api/add-service", addService)
 .post("/api/add-offer", addOffer)
 .post("/api/add-client", addClient)

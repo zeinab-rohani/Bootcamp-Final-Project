@@ -6,7 +6,7 @@ const LogoutButton = () => {
 
   return (
     <button style={{fontSize: "24px",
-    fontWeight: "bold"}} onClick={() => logout({ returnTo: window.location.origin })}>
+      fontWeight: "bold"}} onClick={() => logout({ returnTo: window.location.origin })}>
       Log Out
     </button>
   );

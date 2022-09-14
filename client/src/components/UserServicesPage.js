@@ -7,37 +7,31 @@ const UserServicesPage = () => {
     const { user, setService } = useContext(CurrentRequestContext);
     const navigateMyService = useNavigate()
     const[allServices, setAllServices] = useState([]);
-console.log("user", user)
-// console.log("useremail", user.email)
 
-        useEffect(() => {
-            const fetchServices = async () => {
-            const res = await fetch("/api/services");
-            const { data } = await res.json();
-            setAllServices(data);
-            };
-            fetchServices();
-        }, []);
+    useEffect(() => {
+        const fetchServices = async () => {
+        const res = await fetch("/api/services");
+        const { data } = await res.json();
+        setAllServices(data);
+        };
+        fetchServices();
+    }, []);
 
     return (
         <>
         <Wrapper>
-        <P> To see the details of the service, click on the Id:</P>
+            <P> You can click on the Id to see detailes of the service:</P>
             {allServices.map((item) => {
                 if(item.userEmail===user.email){
-                    return(
-                    <>
-                    <Section>
+                return(
+                <>
+                <Section>
                     <Div onClick={() => {navigateMyService(`/services/${item._id}`)
-                setService(item)}}>
-                        Id: {item._id}
-                    </Div>
-                    {/* <Div> Category: {item.category}</Div> */}
+                    setService(item)}}>
+                    Id: {item._id}</Div>
                     <Div> Title: {item.title}</Div>
-                    {/* <Div> Description: {item.description}</Div> */}
-                    {/* <Div> Status: {item.status}</Div> */}
-                    </Section>
-                    </> 
+                </Section>
+                </> 
                 )}
             })}
         </Wrapper>

@@ -10,7 +10,7 @@ const ServiceForm = () => {
     const [description, setDescription] = useState("");
     const [serviceCategory, setServiceCategory] = useState("");
     const [address, setAddress] = useState("")
-    const [isDisabled, setIsDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
     const [requestFinalized, setRequestFinalized] = useState(false);
     const [message, setMessage] = useState("");
 
@@ -58,7 +58,7 @@ console.log("category", serviceCategory)
             };
             getClients();
 
-            if (!clients.includes(client))
+            if (!clients.includes(user))
             {
                 fetch("/api/add-client", {
                     method: "POST",
@@ -89,9 +89,9 @@ console.log("category", serviceCategory)
             onChange={(e) => setServiceCategory(e.target.value)}>
                 <option value=""></option>
                 <option value="Plumbing">Plumbing</option>
-                <option value="Heating/Cooling">Heating/Cooling</option>
-                <option value="Appliances">Appliances</option>
                 <option value="Painting">Painting</option>
+                <option value="Appliances">Appliances</option>
+                <option value="Flooring/Tiles">Flooring/Tiles</option>
 
             </Select>   
             <LabelDiv >Tiltle:</LabelDiv>

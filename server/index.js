@@ -64,7 +64,7 @@ express()
 .post("/api/add-service", addService)
 .post("/api/add-offer", addOffer)
 .post("/api/add-client", addClient)
-.delete("/api/delete-service/:serviceId", deleteService)
+.delete("/api/delete-service", deleteService)
 .patch("/api/update-service", updateService)
 
 .get("*", (req, res) => {

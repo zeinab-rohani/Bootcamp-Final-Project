@@ -258,13 +258,16 @@ const addClient = async (req, res) => {
 };
 
 const deleteService = async (req, res) => {
-    const { serviceId } = req.params;
+    const serviceId = req.body.serviceId;
+    console.log("req body", req.body)
+
+    console.log("serviceId", serviceId)
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("homeaide");
         const deleteData = await db.collection("serviceRequests")
-        .deleteOne({ _id: ObjectId(req.body.serviceId) });
+        .deleteOne({ _id: ObjectId(serviceId) });
         res.status(204).json({ status: 204, serviceId, data: deleteData });
     } catch (err) {
         res.status(500).json({ status: 500, data: req.body, message: err.message });

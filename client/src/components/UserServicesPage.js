@@ -25,16 +25,16 @@ console.log("user", user)
         <P> To see the details of the service, click on the Id:</P>
             {allServices.map((item) => {
                 if(item.userEmail===user.email){
-                    setService(item)
                     return(
                     <>
                     <Section>
-                    <Div onClick={() => navigateMyService(`/services/${item._id}`)}>
+                    <Div onClick={() => {navigateMyService(`/services/${item._id}`)
+                setService(item)}}>
                         Id: {item._id}
                     </Div>
                     {/* <Div> Category: {item.category}</Div> */}
                     <Div> Title: {item.title}</Div>
-                    <Div> Description: {item.description}</Div>
+                    {/* <Div> Description: {item.description}</Div> */}
                     {/* <Div> Status: {item.status}</Div> */}
                     </Section>
                     </> 
@@ -49,7 +49,7 @@ export default UserServicesPage;
 
 const Wrapper = styled.div`
 background-color: #FFEBCD;
-height: 1000px;
+height: 1500px;
 padding : 20px;
 `;
 

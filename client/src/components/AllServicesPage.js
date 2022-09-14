@@ -16,24 +16,25 @@ const DisplayServices = () => {
     const [loading, setLoading] = useState(false);
     const {setService, services, setServices,
     setServiceProviders } = useContext(CurrentRequestContext);
-
     const navigateService = useNavigate()
-    
-    // get all availables services and display on the table and on the map.
+
     useEffect(() => {
+        setLoading(true);
+
+        // get all service providers from database.
         const getServiceProviders = async () => {
-            setLoading(true);
             const res = await fetch("/api/companies");
             const { data } = await res.json();
             setServiceProviders(data);
-            setLoading(false);
-            };
-                getServiceProviders();
-                fetch("/api/services")
+        };
+        getServiceProviders();
+
+        // get all availables services.
+        fetch("/api/services")
             .then((response) => response.json())
             .then((data) => data.data.map((item) => {
                 if(!item.isConfirmed){
-            setMarkerArr((markerArr)=>[
+                setMarkerArr((markerArr)=>[
                 ...markerArr,
                 {
                     item: item,
@@ -42,48 +43,41 @@ const DisplayServices = () => {
                     lng: item.addressPositionLng,
                     text: "client"
                 }
-            ])}
+                ])}
             setServices(data.data)
-            setLoading(false);
             }))
+        setLoading(false);
     }, []);
-console.log("services", services)
-        return(
-        <>
+
+    return(
         <Wrapper>    
-        {loading ? (
-        <Loading />
-        ) : (
-        <section>
-        <ServicesSection> 
-        {services?.map((item) => { 
-            console.log("itemisconfirmed", item.isConfirmed)
-            console.log("item", item)
-            return (
-            <>
-            {!item.isConfirmed && 
-                (<section key={item.id} >
-                <Div> Address: {item.address}</Div>
-                <Div> Title: {item.title}</Div>
-                {/* <Div> Description: {item.description}</Div> */}
-                <Button type="confirm" value="confirm"
-                    onClick={()=> {navigateService(`/services/${item._id}`)
-                    setService(item)}
-                }
-                >
-                Send an offer
-                </Button>
-                </section>)}
-            </>
-            )
-        })}  
-        </ServicesSection>
-        {/* <MapSection> */}
-        <Map markerArr={markerArr} />
-        {/* </MapSection> */}
-        </section>)}
+            {loading ? (
+            <Loading />
+            ) : (
+            <section>
+                <ServicesSection> 
+                    {services?.map((item) => { 
+                    return (
+                        <>
+                        {!item.isConfirmed && 
+                        (<section key={item.id} >
+                            <AdressDiv> Address: {item.userAddress}</AdressDiv>
+                            <TitleDiv> Title: {item.title}</TitleDiv>
+                            <Button type="confirm" value="confirm"
+                                onClick={()=> {navigateService(`/services/${item._id}`)
+                                setService(item)}
+                                }
+                            >
+                            Send an offer
+                            </Button>
+                        </section>)}
+                        </>
+                    )
+                    })}  
+                </ServicesSection>
+                <Map markerArr={markerArr} />
+            </section>)}
         </Wrapper>
-        </>
     )
 };       
 
@@ -95,18 +89,27 @@ height: 1000px;
 `;
 
 const ServicesSection = styled.section`
-padding-top: 50px;
+padding-top: 30px;
 padding-left: 20px;
 display: inline-block;
 width: 800px;
 `;
 
-const Div = styled.div`
+const AdressDiv = styled.div`
 display: inline-block;
 padding: 10px;
-height: 50px;
-width: 300px;
-border: 2px solid gray;
+height: 60px;
+width: 400px;
+border-bottom: 2px solid gray;
+margin-bottom: 20px;
+`;
+
+const TitleDiv = styled.div`
+display: inline-block;
+padding: 10px;
+height: 60px;
+width: 150px;
+border-bottom: 2px solid gray;
 margin-bottom: 20px;
 `;
 
@@ -117,7 +120,7 @@ margin-left: 10px;
 background: #004B99 0% 0% no-repeat padding-box;
 color: #fff;
 border-radius: 5px;
-font-size: 1.3rem;
+font-size: large;
 font-weight: 400;
 border: 0px;
 box-shadow: 0px 3px 10px darkblue;

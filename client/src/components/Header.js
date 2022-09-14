@@ -28,7 +28,6 @@ const Header = () => {
                 {/* {isAuthenticated && <Link to="/profile"></Link>} */}
             </SigninSection>
             {/* <SignOutSection>
-              
             </SignOutSection> */}
             </Link>
             
@@ -57,8 +56,16 @@ height: 100px;
 const SigninSection = styled.div`
 display: inline-block;
 font-size: medium;
-color: black;
-margin-left: 270px;
+color: #004B99;
+@media screen and (min-width: 1100px) {
+margin-left: 100px;
+} 
+@media screen and (min-width: 1300px) {
+margin-left: 400px; 
+}
+
+
+
 `;
 
 // const SignOutSection = styled.div`
@@ -72,7 +79,7 @@ margin-left: 270px;
 const WelcomeDiv = styled.div`
 display: inline-block;
 font-size: 25px;
-margin-left: 300px;
+margin-left: 100px;
 font-style: italic;
 padding: 10px;
 color: #004B99

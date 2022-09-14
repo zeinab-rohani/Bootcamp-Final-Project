@@ -54,15 +54,33 @@ console.log("service provider ", serviceProvider)
                     </Div>
                     <ServicesDiv>
                         <p style={{marginBottom: "20px"}}>Our services:</p>
-                        <p>Plumbing<span style={{marginLeft: "10px", fontSize: "large"}}>
-                        Clogged drain, leaky pipe, kitchen or bathroom</span></p>
-                        <p>Paintig<span style={{marginLeft: "10px", fontSize: "large"}}>
-                        Transform your home or office with professional painting</span></p>
-                        <p>Appliances<span style={{marginLeft: "10px", fontSize: "large"}}>
-                        Installation and Repair washer-dryer, stove</span></p>
-                        <p>Heating/Cooling<span style={{marginLeft: "10px", fontSize: "large"}}>
-                        Installation and Repair heating system, AC</span></p>
-
+                        <div style={{marginBottom: "10px"}}>
+                        <ServiceImage src={process.env.PUBLIC_URL + "/plumbing.png"}/>
+                        <span style={{marginLeft: "10px"}} >Plumbing
+                        <span style={{marginLeft: "10px", fontSize: "large"}}>
+                        {/* Clogged drain, leaky pipe, kitchen or bathroom */}
+                        </span></span>
+                        </div>
+                        <div>
+                        <ServiceImage src={process.env.PUBLIC_URL + "/painting.png"}/>
+                        <span style={{marginLeft: "10px"}} >Painting
+                        <span style={{marginLeft: "10px", fontSize: "large"}}>
+                        {/* Transform your home or office with professional painting */}
+                        </span></span>
+                        </div>
+                        <div>
+                        <ServiceImage src={process.env.PUBLIC_URL + "/appliances.png"}/>
+                        <span style={{marginLeft: "10px"}} > Appliances
+                        <span style={{marginLeft: "10px", fontSize: "large"}}>
+                        {/* Installation and Repair washer-dryer, stove */}
+                        </span></span>
+                        <div></div>
+                        <ServiceImage src={process.env.PUBLIC_URL + "/floor.png"}/>
+                        <span style={{marginLeft: "10px"}} >Flooring/Tiles
+                        <span style={{marginLeft: "10px", fontSize: "large"}}>
+                        {/* Installation of hardwood, laminate, tiles, back splash */}
+                        </span></span>
+                        </div>
                     </ServicesDiv>
                     </>            
                 } 
@@ -81,7 +99,8 @@ console.log("service provider ", serviceProvider)
 };
 
 const Wrapper = styled.div`
-height : 1000px;
+background-color: #FFEBCD;
+height : 1500px;
 width : 100%;
 display: flex;
 flex-direction: column;
@@ -95,13 +114,13 @@ position: relative;
 
 const Section = styled.div`
 position: absolute;
-width: 50%;
+width: 70%;
 height: 700px;
 padding: 5px;
 /* background-color: #B0E0E6; */
-top: 11%;
-left: 35%;
-color: black;
+top: 10%;
+left: 32%;
+color: white;
 /* color: #004B99; */
 /* border: 5px solid #87CEFA; */
 `;
@@ -110,7 +129,13 @@ const Image = styled.img`
 object-fit: cover;
 width: 100%;
 height: 800px;
-opacity : 0.7;
+opacity : 0.9;
+`;
+
+const ServiceImage = styled.img`
+background-color: #004B99;
+width: 60px;
+height: 60px;
 `;
 
 const Div = styled.div`

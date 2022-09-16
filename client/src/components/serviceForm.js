@@ -202,7 +202,7 @@ font-weight: bold;
 
 const TextDiv = styled.div`
 font-family: Arial, sans-serif;
-font-size:3em;
+font-size:2em;
 letter-spacing:3px;
 color:black ;
 margin-top:70px;

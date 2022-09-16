@@ -68,5 +68,5 @@ padding: 30px;
 
 const Wrapper = styled.div`
 background-color: #FFEBCD;
-height: 1000px;
+height: 1500px;
 `;

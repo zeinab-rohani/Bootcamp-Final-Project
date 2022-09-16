@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceDetail = () => {
@@ -8,6 +9,9 @@ const ServiceDetail = () => {
     const [offers, setOffers] = useState([]);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
+
+    const navigateProfile = useNavigate();
+    const navigateServices = useNavigate();
 
     useEffect(() => {
         const getOffers = async () => {
@@ -59,6 +63,7 @@ const ServiceDetail = () => {
         }).then((res) => {
         console.log("service request is deleted")
         });
+        navigateProfile(-1)
     }
 
     const offerHandle =() => {
@@ -82,6 +87,7 @@ const ServiceDetail = () => {
         }).then((res) => {
         return res.json();
         });
+        navigateServices(-1)
     }
             
     return (
@@ -141,7 +147,7 @@ font-size: large;
 display: inline-block;
 padding: 5px;
 height: 50px;
-width: 500px;
+width: 600px;
 border: 3px solid #004B99;
 `;
 

@@ -17,10 +17,6 @@ Rue de la Rhapsodie, Notre-Dame-de-l'Île-Perrot, QC J7V 0H4
 4230 Boul. Saint-Jean suite #109, Dollard-Des Ormeaux, Quebec H9H 3X4
 
 
-
-
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

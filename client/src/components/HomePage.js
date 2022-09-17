@@ -6,7 +6,7 @@ import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const HomePage = () => {
     const {setServiceProvider, serviceProviders, serviceProvider,
-        setServiceProviders, setUser} = useContext(CurrentRequestContext);
+        setServiceProviders, setUser, setCompany} = useContext(CurrentRequestContext);
     const { user } = useAuth0();
     setUser(user);
     const navigateProfile = useNavigate();
@@ -28,6 +28,7 @@ const HomePage = () => {
             if (item.email === user.email){
             (emailCheck = [...emailCheck,{item}])
             setServiceProvider(item.email)
+            setCompany(item.name)
             }
         })
         if (emailCheck.length>1){
@@ -127,7 +128,7 @@ font-weight: bold;
 `;
 
 const ServicesDiv = styled.div`
-margin-top: 100px;
+margin-top: 70px;
 padding-left: 100px;
 font-size : xx-large;
 font-weight: bold;
@@ -139,6 +140,7 @@ font-size: 35px;
 font-weight: bold;
 padding: 10px;
 background-color: #B0E0E6;
+color: #004B99;
 `;
 
 

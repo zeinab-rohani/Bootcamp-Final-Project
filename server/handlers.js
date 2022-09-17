@@ -136,6 +136,7 @@ const addOffer = async (req, res) => {
         serviceCategory: req.body.serviceCategory,
         serviceProvider: req.body.serviceProvider,
         offer: req.body.offer,
+        company: req.body.company,
         isConfirmed: false
     }
     const offerAdded = await db.collection("offers").insertOne(addOffer);

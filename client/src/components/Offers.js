@@ -18,13 +18,14 @@ const Offers = () => {
         getOffers();
         setLoading(false);
     }, []);
-
     return(
     <Wrapper>
         {loading ? (
         <Loading />
         ) : (<section>
             {offers?.map((item)=>{
+                console.log("offer", item)
+
                 setServiceProvider(user.name)
                 return(
                 <>
@@ -33,7 +34,6 @@ const Offers = () => {
                         <Div> service Title: {item.title}</Div>
                         <Div> Description: {item.description}</Div>
                         <Div> clientEmail: {item.clientEmail}</Div>
-                        <Div> address: {item.address}</Div>
                         <Div> offer: {item.offer}</Div>
                         {item.isConfirmed == true &&
                         <ConfirmDiv> Offer is confirmed </ConfirmDiv>}

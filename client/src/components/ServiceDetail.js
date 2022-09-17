@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CurrentRequestContext } from "./CurrentRequestContext";
 
 const ServiceDetail = () => {
-    const {serviceProvider, service} = useContext(CurrentRequestContext)
+    const {serviceProvider, service, company} = useContext(CurrentRequestContext)
     const [myoffer, setMyOffer] = useState(null);
     const [offers, setOffers] = useState([]);
     const [isConfirmed, setIsConfirmed] = useState(false);
@@ -12,6 +12,11 @@ const ServiceDetail = () => {
 
     const navigateProfile = useNavigate();
     const navigateServices = useNavigate();
+
+
+console.log("service", service)
+console.log("company", company)
+
 
     useEffect(() => {
         const getOffers = async () => {
@@ -82,6 +87,7 @@ const ServiceDetail = () => {
                 description: service.description,
                 serviceCategory: service.serviceCategory,
                 serviceProvider: serviceProvider,
+                company: company,
                 offer: myoffer
             }),
         }).then((res) => {
@@ -107,7 +113,8 @@ const ServiceDetail = () => {
                     <p style={{fontSize:"x-large", marginBottom: "10px"}}>
                         Offers for your service:</p>
                     <Div>Offer: {item.offer}</Div>
-                    <Div>Companie: {item.serviceProvider}</Div>
+                    <Div>Company: {item.company}</Div>
+                    <Div>Company's email: {item.serviceProvider}</Div>
                     {isConfirmed && 
                     <Div style={{backgroundColor: "lightGreen" }}>
                         The offer is confirmed</Div>}

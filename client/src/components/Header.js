@@ -19,7 +19,7 @@ const Header = () => {
                 fontSize: "xx-large"}}>Home Aide</h1>
             </Logo>
             {user && 
-            <WelcomeDiv>Welcome {user.name}</WelcomeDiv>
+            <WelcomeDiv>Welcome {user.nickname}</WelcomeDiv>
             } 
             <SigninSection>
                 {!isAuthenticated && <LoginButton />}
@@ -64,7 +64,7 @@ margin-left: 400px;
 const WelcomeDiv = styled.div`
 display: inline-block;
 font-size: 25px;
-margin-left: 100px;
+margin-left: 300px;
 font-style: italic;
 padding: 10px;
 color: #004B99
